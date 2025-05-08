@@ -1,10 +1,13 @@
-package com.projarc.assignment1.dominio.modelos;
+    package com.projarc.assignment1.dominio.modelos;
 
+import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.List;
 
 public class OrcamentoModel {
     private long id;
+    private LocalDate data;
+    private String nomeCliente;
     private List<ItemPedidoModel> itens;
     private double custoItens;
     private double imposto;
@@ -27,6 +30,18 @@ public class OrcamentoModel {
         for(ItemPedidoModel itemPedido:pedido.getItens()){
             itens.add(itemPedido);
         }
+    }
+
+    public double calcularTotalBruto() {
+        double totalBruto = 0;
+        for (ItemPedidoModel item : itens) {
+            totalBruto += item.calcularSubtotal();
+        }
+        return totalBruto;  
+    }
+
+    public void marcarComoEfetivado() {
+        this.efetivado = true;
     }
 
     public List<ItemPedidoModel> getItens(){
