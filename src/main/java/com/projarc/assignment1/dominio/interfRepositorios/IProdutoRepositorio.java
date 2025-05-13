@@ -1,8 +1,8 @@
-package com.projarc.assignment1.dominio.persistencia;
+package com.projarc.assignment1.dominio.interfRepositorios;
 
 import java.util.List;
 
-import com.projarc.assignment1.dominio.modelos.ProdutoModel;
+import com.projarc.assignment1.dominio.entidades.ProdutoModel;
 
 public interface IProdutoRepositorio {
     List<ProdutoModel> todos();

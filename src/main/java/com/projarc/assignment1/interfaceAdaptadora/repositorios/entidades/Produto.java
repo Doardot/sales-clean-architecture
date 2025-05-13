@@ -1,12 +1,22 @@
-package com.projarc.assignment1.dominio.modelos;
+package com.projarc.assignment1.interfaceAdaptadora.repositorios.entidades;
 
-public class ProdutoModel{
+
+
+import com.projarc.assignment1.dominio.entidades.ProdutoModel;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+
+@Entity
+public class Produto {
+    @Id
     private long id;
     private String descricao;
     private double precoUnitario;
 
-
-    public ProdutoModel(long id, String descricao, double precoUnitario) {
+    protected Produto(){ }
+    
+    public Produto(long id, String descricao, double precoUnitario) {
         this.id = id;
         this.descricao = descricao;
         this.precoUnitario = precoUnitario;
@@ -35,5 +45,13 @@ public class ProdutoModel{
             ", descricao='" + getDescricao() + "'" +
             ", precoUnitario='" + getPrecoUnitario() + "'" +
             "}";
+    }
+
+    public static Produto fromProdutoModel(ProdutoModel pModel){
+        return new Produto(pModel.getId(),pModel.getDescricao(),pModel.getPrecoUnitario());
+    }
+
+    public static ProdutoModel toProdutoModel(Produto prod){
+        return new ProdutoModel(prod.getId(),prod.getDescricao(),prod.getPrecoUnitario());
     }
 }

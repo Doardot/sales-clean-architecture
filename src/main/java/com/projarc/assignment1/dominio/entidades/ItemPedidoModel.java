@@ -1,4 +1,4 @@
-package com.projarc.assignment1.dominio.modelos;
+package com.projarc.assignment1.dominio.entidades;
 
 public class ItemPedidoModel {
     private ProdutoModel produto;

@@ -1,6 +1,6 @@
 package com.projarc.assignment1.aplicacao.dtos;
 
-import com.projarc.assignment1.dominio.modelos.ItemPedidoModel;
+import com.projarc.assignment1.dominio.entidades.ItemPedidoModel;
 
 public class ItemPedidoDTO {
     private long idProduto;

@@ -5,11 +5,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.projarc.assignment1.dominio.modelos.OrcamentoModel;
-import com.projarc.assignment1.dominio.modelos.PedidoModel;
-import com.projarc.assignment1.dominio.modelos.ProdutoModel;
-import com.projarc.assignment1.dominio.persistencia.IEstoqueRepositorio;
-import com.projarc.assignment1.dominio.persistencia.IOrcamentoRepositorio;
+import com.projarc.assignment1.dominio.entidades.OrcamentoModel;
+import com.projarc.assignment1.dominio.entidades.PedidoModel;
+import com.projarc.assignment1.dominio.entidades.ProdutoModel;
+import com.projarc.assignment1.dominio.interfRepositorios.IEstoqueRepositorio;
+import com.projarc.assignment1.dominio.interfRepositorios.IOrcamentoRepositorio;
 
 @Service
 public class ServicoDeVendas {

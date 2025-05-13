@@ -3,8 +3,8 @@ package com.projarc.assignment1.aplicacao.dtos;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.projarc.assignment1.dominio.modelos.ItemPedidoModel;
-import com.projarc.assignment1.dominio.modelos.OrcamentoModel;
+import com.projarc.assignment1.dominio.entidades.ItemPedidoModel;
+import com.projarc.assignment1.dominio.entidades.OrcamentoModel;
 
 public class OrcamentoDTO {
     private long id;

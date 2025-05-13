@@ -1,4 +1,4 @@
-    package com.projarc.assignment1.dominio.modelos;
+    package com.projarc.assignment1.dominio.entidades;
 
 import java.time.LocalDate;
 import java.util.LinkedList;

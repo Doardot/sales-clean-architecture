@@ -1,13 +1,21 @@
-package com.projarc.assignment1.dominio.modelos;
+package com.projarc.assignment1.interfaceAdaptadora.repositorios.entidades;
 
-public class ItemDeEstoqueModel{
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+
+@Entity
+public class ItemDeEstoque {  
+    @Id  
     private long id;
-    private ProdutoModel produto;
+    @ManyToOne(cascade = CascadeType.REFRESH)
+    private Produto produto;
     private int quantidade;
     private int estoqueMin;
     private int estoqueMax;
 
-    public ItemDeEstoqueModel(long id, ProdutoModel produto, int quantidade, int estoqueMin, int estoqueMax) {
+    public ItemDeEstoque(long id, Produto produto, int quantidade, int estoqueMin, int estoqueMax) {
         this.id = id;
         this.produto = produto;
         this.quantidade = quantidade;
@@ -15,11 +23,13 @@ public class ItemDeEstoqueModel{
         this.estoqueMax = estoqueMax;
     }
 
+    protected ItemDeEstoque(){}
+
     public long getId() {
         return id;
     }
 
-    public ProdutoModel getProduto() {
+    public Produto getProduto() {
         return produto;
     }
 
@@ -52,5 +62,4 @@ public class ItemDeEstoqueModel{
         return "ItemDeEstoque [id=" + id + ", produto=" + produto + ", quantidade=" + quantidade + ", estoqueMin="
                 + estoqueMin + ", estoqueMax=" + estoqueMax + "]";
     }
-   
 }

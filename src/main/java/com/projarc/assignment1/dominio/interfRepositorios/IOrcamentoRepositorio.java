@@ -1,8 +1,8 @@
-package com.projarc.assignment1.dominio.persistencia;
+package com.projarc.assignment1.dominio.interfRepositorios;
 
 import java.util.List;
 
-import com.projarc.assignment1.dominio.modelos.OrcamentoModel;
+import com.projarc.assignment1.dominio.entidades.OrcamentoModel;
 
 public interface IOrcamentoRepositorio {
     List<OrcamentoModel> todos();

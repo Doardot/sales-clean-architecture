@@ -1,8 +1,8 @@
-package com.projarc.assignment1.interfaceAdaptadora;
+package com.projarc.assignment1.interfaceAdaptadora.controladores;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,7 +23,7 @@ public class Controller {
     private CriaOrcamentoUC criaOrcamento;
     private EfetivaOrcamentoUC efetivaOrcamento;
 
-    @Autowired
+    //@Autowired
     public Controller(ProdutosDisponiveisUC produtosDisponiveis,
                       CriaOrcamentoUC criaOrcamento,
                       EfetivaOrcamentoUC efetivaOrcamento){
@@ -53,7 +53,6 @@ public class Controller {
     @GetMapping("efetivaOrcamento/{id}")
     @CrossOrigin(origins = "*")
     public OrcamentoDTO efetivaOrcamento(@PathVariable(value="id") long idOrcamento){
-        System.out.println("Deveria efetivar o orçamento id="+idOrcamento);
-        return null;
+        return efetivaOrcamento.run(idOrcamento);
     }
 }
