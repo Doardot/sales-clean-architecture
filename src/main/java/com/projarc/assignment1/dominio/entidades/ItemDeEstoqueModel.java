@@ -1,16 +1,16 @@
 package com.projarc.assignment1.dominio.entidades;
 
-public class ItemDeEstoqueModel{
-    private long id;
-    private ProdutoModel produto;
-    private int quantidade;
-    private int estoqueMin;
-    private int estoqueMax;
+public class ItemDeEstoqueModel {
+    private final long id;
+    private final ProdutoModel produto;
+    private int quantidadeAtual;
+    private final int estoqueMin;
+    private final int estoqueMax;
 
-    public ItemDeEstoqueModel(long id, ProdutoModel produto, int quantidade, int estoqueMin, int estoqueMax) {
+    public ItemDeEstoqueModel(long id, ProdutoModel produto, int quantidadeAtual, int estoqueMin, int estoqueMax) {
         this.id = id;
         this.produto = produto;
-        this.quantidade = quantidade;
+        this.quantidadeAtual = quantidadeAtual;
         this.estoqueMin = estoqueMin;
         this.estoqueMax = estoqueMax;
     }
@@ -23,8 +23,8 @@ public class ItemDeEstoqueModel{
         return produto;
     }
 
-    public int getQuantidade() {
-        return quantidade;
+    public int getQuantidadeAtual() {
+        return quantidadeAtual;
     }
 
     public int getEstoqueMin() {
@@ -35,22 +35,28 @@ public class ItemDeEstoqueModel{
         return estoqueMax;
     }
 
-    public void setQuantidade(int quantidade) {
-        this.quantidade = quantidade;
+    public boolean possuiQuantidade(int quantidadeDesejada) {
+        return quantidadeAtual >= quantidadeDesejada;
     }
 
-    public void setEstoqueMin(int estoqueMin) {
-        this.estoqueMin = estoqueMin;
+    public void baixarQuantidade(int quantidade) {
+        if (quantidade > quantidadeAtual) {
+            throw new IllegalArgumentException("Quantidade insuficiente no estoque");
+        }
+        quantidadeAtual -= quantidade;
     }
 
-    public void setEstoqueMax(int estoqueMax) {
-        this.estoqueMax = estoqueMax;
+    public void adicionarQuantidade(int quantidade) {
+        if (quantidadeAtual + quantidade > estoqueMax) {
+            throw new IllegalArgumentException("Quantidade excede o limite do estoque");
+        }
+        quantidadeAtual += quantidade;
     }
 
     @Override
     public String toString() {
-        return "ItemDeEstoque [id=" + id + ", produto=" + produto + ", quantidade=" + quantidade + ", estoqueMin="
+        return "ItemDeEstoque [id=" + id + ", produto=" + produto + ", quantidade=" + quantidadeAtual + ", estoqueMin="
                 + estoqueMin + ", estoqueMax=" + estoqueMax + "]";
     }
-   
+
 }

@@ -1,33 +1,40 @@
-    package com.projarc.assignment1.dominio.entidades;
+package com.projarc.assignment1.dominio.entidades;
 
 import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.List;
 
 public class OrcamentoModel {
+    private enum Status {
+        PENDENTE, EFETIVADO
+    }
+
     private long id;
     private LocalDate data;
     private String nomeCliente;
+    private String estado;
+    private String pais;
     private List<ItemPedidoModel> itens;
     private double custoItens;
-    private double imposto;
+    private double impostoEstadual;
+    private double impostoFederal;
     private double desconto;
     private double custoConsumidor;
-    private boolean efetivado;
+    private Status status;
 
     public OrcamentoModel(long id) {
         this.id = id;
         this.itens = new LinkedList<>();
-        this.efetivado = false;
+        this.status = Status.PENDENTE;
     }
 
-    public OrcamentoModel(){
+    public OrcamentoModel() {
         this.itens = new LinkedList<>();
-        this.efetivado = false;
+        this.status = Status.PENDENTE;
     }
 
-    public void addItensPedido(PedidoModel pedido){
-        for(ItemPedidoModel itemPedido:pedido.getItens()){
+    public void addItensPedido(PedidoModel pedido) {
+        for (ItemPedidoModel itemPedido : pedido.getItens()) {
             itens.add(itemPedido);
         }
     }
@@ -37,14 +44,20 @@ public class OrcamentoModel {
         for (ItemPedidoModel item : itens) {
             totalBruto += item.calcularSubtotal();
         }
-        return totalBruto;  
+        return totalBruto;
     }
 
-    public void marcarComoEfetivado() {
-        this.efetivado = true;
+    public boolean estaValido() {
+        return data.plusDays(21).isAfter(LocalDate.now());
     }
 
-    public List<ItemPedidoModel> getItens(){
+    public void efetivar() {
+        if (!estaValido())
+            throw new IllegalStateException("Orçamento expirado");
+        this.status = Status.EFETIVADO;
+    }
+
+    public List<ItemPedidoModel> getItens() {
         return itens;
     }
 
@@ -52,7 +65,7 @@ public class OrcamentoModel {
         return id;
     }
 
-    public void setId(long id){
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -60,23 +73,23 @@ public class OrcamentoModel {
         return custoItens;
     }
 
-    public void setCustoItens(double custoItens){
+    public void setCustoItens(double custoItens) {
         this.custoItens = custoItens;
     }
 
-    public double getImposto() {
-        return imposto;
+    public double getImpostoEstadual() {
+        return impostoEstadual;
     }
 
-    public void setImposto(double imposto){
-        this.imposto = imposto;
+    public double getImpostoFederal() {
+        return impostoFederal;
     }
 
     public double getDesconto() {
         return desconto;
     }
 
-    public void setDesconto(double desconto){
+    public void setDesconto(double desconto) {
         this.desconto = desconto;
     }
 
@@ -84,15 +97,7 @@ public class OrcamentoModel {
         return custoConsumidor;
     }
 
-    public void setCustoConsumidor(double custoConsumidor){
+    public void setCustoConsumidor(double custoConsumidor) {
         this.custoConsumidor = custoConsumidor;
-    }
-
-    public boolean isEfetivado() {
-        return efetivado;
-    }
-
-    public void efetiva(){
-        efetivado = true;
     }
 }

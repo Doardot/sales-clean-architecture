@@ -1,9 +1,9 @@
 package com.projarc.assignment1.dominio.entidades;
 
 public class ItemPedidoModel {
-    private ProdutoModel produto;
-    private int quantidade;
-    
+    private final ProdutoModel produto;
+    private final int quantidade;
+
     public ItemPedidoModel(ProdutoModel produto, int quantidade) {
         this.produto = produto;
         this.quantidade = quantidade;
@@ -21,8 +21,12 @@ public class ItemPedidoModel {
         return quantidade;
     }
 
-    public void setQuantidade(int quantidade) {
-        this.quantidade = quantidade;
+    public double getSubtotal() {
+        return produto.getPrecoUnitario() * quantidade;
+    }
+
+    public boolean temDescontoQuantidade() {
+        return quantidade > 3;
     }
 
     @Override
