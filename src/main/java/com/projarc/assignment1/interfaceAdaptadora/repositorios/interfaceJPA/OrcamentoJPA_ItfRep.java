@@ -4,12 +4,13 @@ import com.projarc.assignment1.interfaceAdaptadora.repositorios.entidades.Orcame
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface OrcamentoJPA_ItfRep extends CrudRepository<Orcamento, Long> {
     @Override
     List<Orcamento> findAll();
-    OrcamentoJPA_ItfRep findById(long id);
-    List<OrcamentoJPA_ItfRep> findByStatus(String status);
-    List<OrcamentoJPA_ItfRep> findByClienteNome(String nomeCliente);
-    List<OrcamentoJPA_ItfRep> findByDataCriacaoBetween(String dataInicio, String dataFim);
+    Optional<Orcamento> findById(long id);
+    List<Orcamento> findByStatus(String status);
+    List<Orcamento> findByClienteNome(String nomeCliente);
+    List<Orcamento> findByDataCriacaoBetween(String dataInicio, String dataFim);
 }

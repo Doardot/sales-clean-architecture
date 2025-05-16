@@ -23,19 +23,19 @@ public class ProdutoRepJPA implements IProdutoRepositorio {
     }
 
     @Override
-    public List<ProdutoModel> todos() {
+    public List<ProdutoModel> listarTodosProdutos() {
         List<Produto> produtos = produtoRepository.findAll();
         if (produtos.isEmpty()) {
             return new LinkedList<>();
         } else {
             return produtos.stream()
-                    .map(prod -> Produto.toProdutoModel(prod))
+                    .map(Produto::toProdutoModel)
                     .toList();
         }
     }
 
     @Override
-    public ProdutoModel consultaPorId(long id) {
+    public ProdutoModel consultaProdutoPorId(long id) {
         Produto produto = produtoRepository.findById(id);
         System.out.println("Produto de codigo: "+id+": "+produto);
         if (produto == null) {
@@ -43,5 +43,15 @@ public class ProdutoRepJPA implements IProdutoRepositorio {
         } else {
             return Produto.toProdutoModel(produto);
         }
+    }
+
+    @Override
+    public void salvarProduto(ProdutoModel produto) {
+        // TODO
+    }
+
+    @Override
+    public void removerProduto(ProdutoModel produto) {
+        // TODO
     }
 }

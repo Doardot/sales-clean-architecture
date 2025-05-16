@@ -14,9 +14,7 @@ public interface IOrcamentoRepositorio {
     List<OrcamentoModel> listarOrcamentosEfetivados();
     List<OrcamentoModel> listarOrcamentosCancelados();
     List<OrcamentoModel> listarOrcamentosPorCliente(String nomeCliente);
-    List<OrcamentoModel> listarOrcamentoPorPeriodo(String dataInicio, String dataFim);  
+    List<OrcamentoModel> listarOrcamentoPorPeriodo(String dataInicio, String dataFim);
 
-    // seed
-    void salvarOrcamento(OrcamentoModel orcamento);
-    void removerOrcamento(OrcamentoModel orcamento);
+    //OrcamentoModel apagaOrcamento(OrcamentoModel orcamentoModel);
 }
