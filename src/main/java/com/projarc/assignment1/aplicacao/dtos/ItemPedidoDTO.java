@@ -2,22 +2,16 @@ package com.projarc.assignment1.aplicacao.dtos;
 
 import com.projarc.assignment1.dominio.entidades.ItemPedidoModel;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class ItemPedidoDTO {
     private long idProduto;
     private int qtdade;
-
-    public ItemPedidoDTO(long idProduto, int qtdade) {
-        this.idProduto = idProduto;
-        this.qtdade = qtdade;
-    }
-
-    public long getIdProduto() {
-        return idProduto;
-    }
-
-    public int getQtdade() {
-        return qtdade;
-    }
 
     @Override
     public String toString() {

@@ -1,27 +1,25 @@
 package com.projarc.assignment1.dominio.entidades;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import lombok.Getter;
+
+@Getter
 public class PedidoModel {
-    private long id;
-    private List<ItemPedidoModel> itens;
+    private final long id;
+    private final List<ItemPedidoModel> itens;
 
     public PedidoModel(long id) {
         this.id = id;
         this.itens = new LinkedList<>();
     }
 
-    public long getId() {
-        return id;
-    }
-
-    public List<ItemPedidoModel> getItens() {
-        return new ArrayList<ItemPedidoModel>(itens);
-    }
-
     public void addItem(ItemPedidoModel item){
         itens.add(item);
+    }
+
+    public void removeItem(ItemPedidoModel item){
+        itens.remove(item);
     }
 }

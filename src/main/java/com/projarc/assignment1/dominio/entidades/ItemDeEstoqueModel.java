@@ -1,39 +1,16 @@
 package com.projarc.assignment1.dominio.entidades;
 
+import lombok.Data;
+import lombok.AllArgsConstructor;
+
+@Data
+@AllArgsConstructor
 public class ItemDeEstoqueModel {
     private final long id;
-    private final ProdutoModel produto;
     private int quantidadeAtual;
-    private final int estoqueMin;
-    private final int estoqueMax;
-
-    public ItemDeEstoqueModel(long id, ProdutoModel produto, int quantidadeAtual, int estoqueMin, int estoqueMax) {
-        this.id = id;
-        this.produto = produto;
-        this.quantidadeAtual = quantidadeAtual;
-        this.estoqueMin = estoqueMin;
-        this.estoqueMax = estoqueMax;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public ProdutoModel getProduto() {
-        return produto;
-    }
-
-    public int getQuantidadeAtual() {
-        return quantidadeAtual;
-    }
-
-    public int getEstoqueMin() {
-        return estoqueMin;
-    }
-
-    public int getEstoqueMax() {
-        return estoqueMax;
-    }
+    private final int quantidadeMin;
+    private final int quantidadeMax;
+    private final ProdutoModel produto;
 
     public boolean possuiQuantidade(int quantidadeDesejada) {
         return quantidadeAtual >= quantidadeDesejada;
@@ -47,16 +24,9 @@ public class ItemDeEstoqueModel {
     }
 
     public void adicionarQuantidade(int quantidade) {
-        if (quantidadeAtual + quantidade > estoqueMax) {
+        if (quantidadeAtual + quantidade > quantidadeMax) {
             throw new IllegalArgumentException("Quantidade excede o limite do estoque");
         }
         quantidadeAtual += quantidade;
     }
-
-    @Override
-    public String toString() {
-        return "ItemDeEstoque [id=" + id + ", produto=" + produto + ", quantidade=" + quantidadeAtual + ", estoqueMin="
-                + estoqueMin + ", estoqueMax=" + estoqueMax + "]";
-    }
-
 }

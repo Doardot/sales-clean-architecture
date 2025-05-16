@@ -1,68 +1,50 @@
 package com.projarc.assignment1.aplicacao.dtos;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.projarc.assignment1.dominio.entidades.ItemPedidoModel;
 import com.projarc.assignment1.dominio.entidades.OrcamentoModel;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class OrcamentoDTO {
     private long id;
+    private LocalDate data = LocalDate.now();
+    private String nomeCliente;
     private List<ItemPedidoDTO> itens;
-    private double custoItens;
-    private double imposto;
+    private String estado;
+    private String pais;
+    private double somatorioCustoItens;
+    private double impostoEstadual;
+    private double impostoFederal;
     private double desconto;
-    private double custoConsumidor;
-    private boolean efetivado;
-
-    public OrcamentoDTO(long id,List<ItemPedidoDTO> itens,double custoItens,double imposto,double desconto, double custoConsumidor,boolean efetivado) {
-        this.id = id;
-        this.itens = itens;
-        this.custoItens = custoItens;
-        this.imposto = imposto;
-        this.desconto = desconto;
-        this.custoConsumidor = custoConsumidor;
-        this.efetivado = efetivado;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public List<ItemPedidoDTO> getItens(){
-        return itens;
-    }
-
-    public double getCustoItens() {
-        return custoItens;
-    }
-
-    public double getImposto() {
-        return imposto;
-    }
-
-    public double getDesconto() {
-        return desconto;
-    }
-
-    public double getCustoConsumidor() {
-        return custoConsumidor;
-    }
-
-    public boolean isEfetivado() {
-        return efetivado;
-    }
-
-    public void efetiva(){
-        efetivado = true;
-    }
+    private double valorFinal;
+    private OrcamentoModel.Status status;
 
     public static OrcamentoDTO fromModel(OrcamentoModel orcamento){
         List<ItemPedidoDTO> itens = new ArrayList<>(orcamento.getItens().size());
         for(ItemPedidoModel ip:orcamento.getItens()){
             itens.add(ItemPedidoDTO.fromModel(ip));
         }
-        return new OrcamentoDTO(orcamento.getId(),itens,orcamento.getCustoItens(),
-                                orcamento.getImposto(),orcamento.getDesconto(),orcamento.getCustoConsumidor(),orcamento.isEfetivado());
+        return new OrcamentoDTO(
+            orcamento.getId(),
+            orcamento.getData(),
+            orcamento.getNomeCliente(),
+            itens,
+            orcamento.getEstado(),
+            orcamento.getPais(),
+            orcamento.getSomatorioCustoItens(),
+            orcamento.getImpostoEstadual(),
+            orcamento.getImpostoFederal(),
+            orcamento.getDesconto(),
+            orcamento.getValorFinal(),
+            orcamento.getStatus()
+        );
     }
 }
