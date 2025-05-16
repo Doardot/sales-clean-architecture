@@ -6,8 +6,12 @@ import com.projarc.assignment1.dominio.entidades.ProdutoModel;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
 @Entity
+@AllArgsConstructor
+@Data
 public class Produto {
     @Id
     private long id;
@@ -15,28 +19,6 @@ public class Produto {
     private double precoUnitario;
 
     protected Produto(){ }
-    
-    public Produto(long id, String descricao, double precoUnitario) {
-        this.id = id;
-        this.descricao = descricao;
-        this.precoUnitario = precoUnitario;
-    }
-
-    public long getId() {
-        return this.id;
-    }
-
-    public String getDescricao() {
-        return this.descricao;
-    }
-
-    public double getPrecoUnitario() {
-        return this.precoUnitario;
-    }
-
-    public void setPrecoUnitario(double precoUnitario) {
-        this.precoUnitario = precoUnitario;
-    }
 
     @Override
     public String toString() {

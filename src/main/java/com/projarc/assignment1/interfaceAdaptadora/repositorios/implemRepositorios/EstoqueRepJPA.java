@@ -16,24 +16,24 @@ import com.projarc.assignment1.interfaceAdaptadora.repositorios.interfaceJPA.Est
 @Repository
 @Primary
 public class EstoqueRepJPA implements IEstoqueRepositorio{
-    private EstoqueJPA_ItfRep estoque;
+    private final EstoqueJPA_ItfRep estoqueRepository;
 
     @Autowired
     public EstoqueRepJPA(EstoqueJPA_ItfRep estoque){
-        this.estoque = estoque;
+        this.estoqueRepository = estoque;
     }
 
     @Override
-    public List<ProdutoModel> todos() {
-        List<ItemDeEstoque> itens = estoque.findAll();
+    public List<ProdutoModel> listarTodosProdutos() {
+        List<ItemDeEstoque> itens = estoqueRepository.findAll();
         return itens.stream()
                 .map(it->Produto.toProdutoModel(it.getProduto()))
                 .toList();
     }
 
     @Override
-    public List<ProdutoModel> todosComEstoque() {
-        List<ItemDeEstoque> itens = estoque.findAll();
+    public List<ProdutoModel> listarTodosProdutosComEstoque() {
+        List<ItemDeEstoque> itens = estoqueRepository.findAll();
         return itens.stream()
                 .filter(it->it.getQuantidade()>0)
                 .map(it->Produto.toProdutoModel(it.getProduto()))
@@ -41,8 +41,27 @@ public class EstoqueRepJPA implements IEstoqueRepositorio{
     }
 
     @Override
+    public List<ProdutoModel> listarTodosProdutosEsgotados() {
+        List<ItemDeEstoque> itens = estoqueRepository.findAll();
+        return itens.stream()
+                .filter(it->it.getQuantidade()<=0)
+                .map(it->Produto.toProdutoModel(it.getProduto()))
+                .toList();
+    }
+
+    @Override
+    public List<ProdutoModel> listarEstoqueDisponivelParaProdutosInformados(List<ProdutoModel> produtos) {
+        List<ItemDeEstoque> itens = estoqueRepository.findAll();
+        return itens.stream()
+                .filter(it->produtos.contains(Produto.toProdutoModel(it.getProduto())))
+                .filter(it->it.getQuantidade()>0)
+                .map(it->Produto.toProdutoModel(it.getProduto()))
+                .toList();
+    }
+
+    @Override
     public int quantidadeEmEstoque(long codigo) {
-        ItemDeEstoque item = estoque.findById(codigo).orElse(null);
+        ItemDeEstoque item = estoqueRepository.findById(codigo).orElse(null);
         if (item == null){
             return -1;
         }else{
@@ -52,7 +71,7 @@ public class EstoqueRepJPA implements IEstoqueRepositorio{
 
     @Override
     public int baixaEstoque(long codProd, int qtdade) {
-        ItemDeEstoque item = estoque.findById(codProd).orElse(null);
+        ItemDeEstoque item = estoqueRepository.findById(codProd).orElse(null);
         if (item == null){
             throw new IllegalArgumentException("Produto inexistente");
         }
@@ -61,7 +80,32 @@ public class EstoqueRepJPA implements IEstoqueRepositorio{
         }
         int novaQuantidade = item.getQuantidade() - qtdade;
         item.setQuantidade(novaQuantidade);
-        estoque.save(item);
+        estoqueRepository.save(item);
         return novaQuantidade;
+    }
+
+    @Override
+    public int aumentaEstoque(long codProd, int qtdade) {
+        ItemDeEstoque item = estoqueRepository.findById(codProd).orElse(null);
+        if (item == null){
+            throw new IllegalArgumentException("Produto inexistente");
+        }
+        if (item.getQuantidade() + qtdade > item.getEstoqueMax()){
+            throw new IllegalArgumentException("Quantidade em estoque excede o limite");
+        }
+        int novaQuantidade = item.getQuantidade() + qtdade;
+        item.setQuantidade(novaQuantidade);
+        estoqueRepository.save(item);
+        return novaQuantidade;
+    }
+
+    @Override
+    public void salvarProduto(ProdutoModel produto) {
+        // TO-DO
+    }
+
+    @Override
+    public void removerProduto(ProdutoModel produto) {
+        // TO-DO
     }
 }

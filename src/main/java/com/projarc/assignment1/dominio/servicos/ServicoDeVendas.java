@@ -23,27 +23,27 @@ public class ServicoDeVendas {
     }
     
     public List<ProdutoModel> produtosDisponiveis() {
-        return estoque.todosComEstoque();
+        return estoque.listarTodosProdutosComEstoque();
     }
 
     public OrcamentoModel recuperaOrcamentoPorId(long id) {
-        return this.orcamentos.recuperaPorId(id);
+        return this.orcamentos.recuperaOrcamentoPorId(id);
     }
 
     public OrcamentoModel criaOrcamento(PedidoModel pedido) {
-        var novoOrcamento = new OrcamentoModel();
+        var novoOrcamento = new OrcamentoModel(0);
         novoOrcamento.addItensPedido(pedido);
         double custoItens = novoOrcamento.getItens().stream()
             .mapToDouble(it->it.getProduto().getPrecoUnitario()*it.getQuantidade())
             .sum();
-        novoOrcamento.setImposto(custoItens * 0.1);
+        novoOrcamento.setImpostoFederal(custoItens * 0.15);
         if (novoOrcamento.getItens().size() > 5){
                 novoOrcamento.setDesconto(custoItens * 0.05);
             }else{
                 novoOrcamento.setDesconto(0.0);
             }
-        novoOrcamento.setCustoConsumidor(custoItens + novoOrcamento.getImposto() - novoOrcamento.getDesconto());
-        return this.orcamentos.cadastra(novoOrcamento);
+        novoOrcamento.setValorFinal(custoItens + novoOrcamento.getImpostoFederal() + novoOrcamento.getImpostoEstadual() - novoOrcamento.getDesconto());
+        return this.orcamentos.cadastraOrcamento(novoOrcamento);
     }
  
     public OrcamentoModel efetivaOrcamento(long id) {

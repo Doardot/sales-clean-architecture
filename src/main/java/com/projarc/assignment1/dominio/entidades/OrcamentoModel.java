@@ -4,11 +4,11 @@ import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.List;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.*;
 
 @Data
 @AllArgsConstructor
+@EqualsAndHashCode(of = "id")
 public class OrcamentoModel {
     public enum Status {
         PENDENTE, EFETIVADO, CANCELADO
@@ -30,12 +30,6 @@ public class OrcamentoModel {
     public OrcamentoModel(long id) {
         this.id = id;
         this.itens = new LinkedList<>();
-        this.status = Status.PENDENTE;
-    }
-
-    public OrcamentoModel() {
-        this.itens = new LinkedList<>();
-        this.status = Status.PENDENTE;
     }
 
     public void addItensPedido(PedidoModel pedido) {
