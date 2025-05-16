@@ -3,6 +3,7 @@ package com.projarc.assignment1.interfaceAdaptadora.controladores;
 import java.util.List;
 
 //import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,10 +19,20 @@ import com.projarc.assignment1.aplicacao.dtos.OrcamentoDTO;
 import com.projarc.assignment1.aplicacao.dtos.ProdutoDTO;
 
 @RestController
-public class Controller {
-    @GetMapping("")
+@AllArgsConstructor
+public class OrcamentoController {
+    private CriaOrcamentoUC criaOrcamento;
+    private EfetivaOrcamentoUC efetivaOrcamento;
+
+    @PostMapping("novoOrcamento")
     @CrossOrigin(origins = "*")
-    public String welcomeMessage(){
-        return("Bem vindo as lojas ACME");
+    public OrcamentoDTO novoOrcamento(@RequestBody List<ItemPedidoDTO> itens){
+        return criaOrcamento.run(itens);
+    }
+
+    @GetMapping("efetivaOrcamento/{id}")
+    @CrossOrigin(origins = "*")
+    public OrcamentoDTO efetivaOrcamento(@PathVariable(value="id") long idOrcamento){
+        return efetivaOrcamento.run(idOrcamento);
     }
 }
