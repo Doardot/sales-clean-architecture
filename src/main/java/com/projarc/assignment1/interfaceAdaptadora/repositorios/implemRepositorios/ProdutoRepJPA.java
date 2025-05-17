@@ -47,11 +47,13 @@ public class ProdutoRepJPA implements IProdutoRepositorio {
 
     @Override
     public void salvarProduto(ProdutoModel produto) {
-        // TODO
+        Produto entidade = Produto.fromProdutoModel(produto);
+        produtoRepository.save(entidade);
     }
 
     @Override
     public void removerProduto(ProdutoModel produto) {
-        // TODO
+        Produto entidade = Produto.fromProdutoModel(produto);
+        produtoRepository.delete(entidade);
     }
 }
