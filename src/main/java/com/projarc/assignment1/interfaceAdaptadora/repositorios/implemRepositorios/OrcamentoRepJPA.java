@@ -1,5 +1,6 @@
 package com.projarc.assignment1.interfaceAdaptadora.repositorios.implemRepositorios;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import com.projarc.assignment1.interfaceAdaptadora.repositorios.entidades.Orcamento;
@@ -25,7 +26,7 @@ public class OrcamentoRepJPA implements IOrcamentoRepositorio {
 
     @Override
     public List<OrcamentoModel> listarOrcamentosPendentes() {
-        List<Orcamento> orcamentos = orcamentoRepository.findByStatus("PENDENTE");
+        List<Orcamento> orcamentos = orcamentoRepository.findByStatus(OrcamentoModel.Status.PENDENTE);
         return orcamentos.stream()
                 .map(Orcamento::toOrcamentoModel)
                 .toList();
@@ -33,7 +34,7 @@ public class OrcamentoRepJPA implements IOrcamentoRepositorio {
 
     @Override
     public List<OrcamentoModel> listarOrcamentosEfetivados() {
-        List<Orcamento> orcamentos = orcamentoRepository.findByStatus("EFETIVADO");
+        List<Orcamento> orcamentos = orcamentoRepository.findByStatus(OrcamentoModel.Status.EFETIVADO);
         return orcamentos.stream()
                 .map(Orcamento::toOrcamentoModel)
                 .toList();
@@ -41,7 +42,7 @@ public class OrcamentoRepJPA implements IOrcamentoRepositorio {
 
     @Override
     public List<OrcamentoModel> listarOrcamentosCancelados() {
-        List<Orcamento> orcamentos = orcamentoRepository.findByStatus("CANCELADO");
+        List<Orcamento> orcamentos = orcamentoRepository.findByStatus(OrcamentoModel.Status.CANCELADO);
         return orcamentos.stream()
                 .map(Orcamento::toOrcamentoModel)
                 .toList();
@@ -49,15 +50,15 @@ public class OrcamentoRepJPA implements IOrcamentoRepositorio {
 
     @Override
     public List<OrcamentoModel> listarOrcamentosPorCliente(String nomeCliente) {
-        List<Orcamento> orcamentos = orcamentoRepository.findByClienteNome(nomeCliente);
+        List<Orcamento> orcamentos = orcamentoRepository.findByNomeCliente(nomeCliente);
         return orcamentos.stream()
                 .map(Orcamento::toOrcamentoModel)
                 .toList();
     }
 
     @Override
-    public List<OrcamentoModel> listarOrcamentoPorPeriodo(String dataInicio, String dataFim) {
-        List<Orcamento> orcamentos = orcamentoRepository.findByDataCriacaoBetween(dataInicio, dataFim);
+    public List<OrcamentoModel> listarOrcamentoPorPeriodo(LocalDate dataInicio, LocalDate dataFim) {
+        List<Orcamento> orcamentos = orcamentoRepository.findByDataBetween(dataInicio, dataFim);
         return orcamentos.stream()
                 .map(Orcamento::toOrcamentoModel)
                 .toList();
