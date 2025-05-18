@@ -27,8 +27,7 @@ public class OrcamentoModel {
     private double valorFinal;
     private Status status = Status.PENDENTE;
 
-    public OrcamentoModel(long id) {
-        this.id = id;
+    public OrcamentoModel() {
         this.itens = new LinkedList<>();
     }
 

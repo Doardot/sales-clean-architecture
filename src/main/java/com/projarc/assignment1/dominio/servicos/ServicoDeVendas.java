@@ -31,7 +31,7 @@ public class ServicoDeVendas {
     }
 
     public OrcamentoModel criaOrcamento(PedidoModel pedido) {
-        var novoOrcamento = new OrcamentoModel(0);
+        var novoOrcamento = new OrcamentoModel();
         novoOrcamento.addItensPedido(pedido);
         double custoItens = novoOrcamento.getItens().stream()
             .mapToDouble(it->it.getProduto().getPrecoUnitario()*it.getQuantidade())
