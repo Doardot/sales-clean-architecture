@@ -5,6 +5,7 @@ import com.projarc.assignment1.dominio.entidades.OrcamentoModel;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -32,6 +33,19 @@ public class Orcamento {
     private List<ItemPedido> itens;
 
     public Orcamento() { }
+
+    public Orcamento(LocalDate data, String nomeCliente, Endereco endereco, double somatorioCustoItens, double impostoEstadual, double impostoFederal, double desconto, double valorFinal, OrcamentoModel.Status status, List<ItemPedido> itens) {
+        this.data = data;
+        this.nomeCliente = nomeCliente;
+        this.endereco = endereco;
+        this.somatorioCustoItens = somatorioCustoItens;
+        this.impostoEstadual = impostoEstadual;
+        this.impostoFederal = impostoFederal;
+        this.desconto = desconto;
+        this.valorFinal = valorFinal;
+        this.status = status;
+        this.itens = itens;
+    }
 
     public static OrcamentoModel toOrcamentoModel(Orcamento orcamento) {
         EnderecoModel enderecoModel = new EnderecoModel(

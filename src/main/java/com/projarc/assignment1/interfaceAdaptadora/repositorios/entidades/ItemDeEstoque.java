@@ -1,5 +1,7 @@
 package com.projarc.assignment1.interfaceAdaptadora.repositorios.entidades;
 
+import com.projarc.assignment1.dominio.entidades.ItemDeEstoqueModel;
+import com.projarc.assignment1.dominio.entidades.ProdutoModel;
 import io.micrometer.common.lang.Nullable;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;

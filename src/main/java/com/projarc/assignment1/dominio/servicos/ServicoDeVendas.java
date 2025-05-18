@@ -37,7 +37,7 @@ public class ServicoDeVendas {
 
     public OrcamentoModel criaOrcamento(PedidoModel pedido, String pais, String estado) {
         EnderecoModel endereco = new EnderecoModel(estado, pais);
-        OrcamentoModel novoOrcamento = new OrcamentoModel(0);
+        OrcamentoModel novoOrcamento = new OrcamentoModel();
         novoOrcamento.setEndereco(endereco);
         novoOrcamento.addItensPedido(pedido);
 
