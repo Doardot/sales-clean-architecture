@@ -16,7 +16,6 @@ import com.projarc.assignment1.dominio.servicos.ServicoDeVendas;
 
 @Component
 @RequiredArgsConstructor
-
 public class CriaOrcamentoUC {
     private final ServicoDeVendas servicoDeVendas;
     private final ServicoDeEstoque servicoDeEstoque;

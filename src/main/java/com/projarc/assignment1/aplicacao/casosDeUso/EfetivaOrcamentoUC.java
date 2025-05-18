@@ -4,18 +4,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.projarc.assignment1.aplicacao.dtos.OrcamentoDTO;
+import com.projarc.assignment1.dominio.entidades.ItemPedidoModel;
+import com.projarc.assignment1.dominio.entidades.OrcamentoModel;
+import com.projarc.assignment1.dominio.servicos.ServicoDeEstoque;
 import com.projarc.assignment1.dominio.servicos.ServicoDeVendas;
 
-@Component
-public class EfetivaOrcamentoUC {
-    private ServicoDeVendas servicoDeVendas;
-    
-    @Autowired
-    public EfetivaOrcamentoUC(ServicoDeVendas servicoDeVendas){
-        this.servicoDeVendas = servicoDeVendas;
-    }
+import lombok.AllArgsConstructor;
 
-    public OrcamentoDTO run(long idOrcamento){
-        return null;
+@Component
+@AllArgsConstructor
+public class EfetivaOrcamentoUC {
+    private final ServicoDeVendas servicoDeVendas;
+    private final ServicoDeEstoque servicoDeEstoque;
+
+    public OrcamentoDTO run(long idOrcamento) {
+        return OrcamentoDTO.fromModel(servicoDeVendas.efetivaOrcamento(idOrcamento));
     }
 }

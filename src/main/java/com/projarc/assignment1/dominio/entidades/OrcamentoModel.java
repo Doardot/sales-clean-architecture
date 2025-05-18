@@ -48,6 +48,7 @@ public class OrcamentoModel {
     public boolean estaValido() {
         LocalDate dataAtual = LocalDate.now();
         LocalDate dataLimite = data.plusDays(21);
+
         return status == Status.PENDENTE && dataAtual.isBefore(dataLimite);
     }
 
