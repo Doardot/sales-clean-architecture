@@ -1,11 +1,7 @@
 package com.projarc.assignment1.aplicacao.casosDeUso;
 
-import java.util.List;
-
 import org.springframework.stereotype.Component;
 
-import com.projarc.assignment1.aplicacao.dtos.ItemPedidoDTO;
-import com.projarc.assignment1.aplicacao.dtos.ProdutoDTO;
 import com.projarc.assignment1.dominio.servicos.ServicoDeEstoque;
 
 import lombok.AllArgsConstructor;

@@ -2,6 +2,7 @@ package com.projarc.assignment1.dominio.interfRepositorios;
 
 import java.util.List;
 
+import com.projarc.assignment1.dominio.entidades.ItemDeEstoqueModel;
 import com.projarc.assignment1.dominio.entidades.ProdutoModel;
 
 public interface IEstoqueRepositorio {
@@ -13,7 +14,8 @@ public interface IEstoqueRepositorio {
     List<ProdutoModel> listarTodosProdutos();
     List<ProdutoModel> listarTodosProdutosComEstoque();
     List<ProdutoModel> listarTodosProdutosEsgotados();
-    List<ProdutoModel> listarEstoqueDisponivelParaProdutosInformados(List<ProdutoModel> produtos);
+    List<ItemDeEstoqueModel> listarEstoqueDisponivelParaTodosProdutos();
+    List<ItemDeEstoqueModel> listarEstoqueDisponivelParaProdutosInformados(List<Long> produtos);
 
     // seed
     void salvarProduto(ProdutoModel produto);

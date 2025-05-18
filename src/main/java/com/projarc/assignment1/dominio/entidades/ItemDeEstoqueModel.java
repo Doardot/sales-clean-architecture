@@ -1,5 +1,7 @@
 package com.projarc.assignment1.dominio.entidades;
 
+import com.projarc.assignment1.interfaceAdaptadora.repositorios.entidades.ItemDeEstoque;
+import com.projarc.assignment1.interfaceAdaptadora.repositorios.entidades.Produto;
 import lombok.Data;
 import jakarta.persistence.Entity;
 import lombok.AllArgsConstructor;
@@ -29,5 +31,9 @@ public class ItemDeEstoqueModel {
             throw new IllegalArgumentException("Quantidade excede o limite do estoque");
         }
         quantidadeAtual += quantidade;
+    }
+
+    public static ItemDeEstoqueModel toItemDeEstoqueModel(ItemDeEstoque item){
+        return new ItemDeEstoqueModel(item.getId(), item.getQuantidade(), item.getEstoqueMin(), item.getEstoqueMax(), Produto.toProdutoModel(item.getProduto()));
     }
 }

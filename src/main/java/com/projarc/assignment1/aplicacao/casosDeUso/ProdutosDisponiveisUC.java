@@ -10,16 +10,15 @@ import com.projarc.assignment1.dominio.servicos.ServicoDeEstoque;
 
 @Component
 public class ProdutosDisponiveisUC {
-    private ServicoDeEstoque servicoEstoque;
+    private final ServicoDeEstoque servicoEstoque;
 
-    @Autowired
     public ProdutosDisponiveisUC(ServicoDeEstoque servicoEstoque){
         this.servicoEstoque = servicoEstoque;
     }
 
     public List<ProdutoDTO> run(){
         return servicoEstoque.produtosDisponiveis().stream()
-            .map(p->ProdutoDTO.fromModel(p))
+            .map(ProdutoDTO::fromModel)
             .toList();
     }
 }

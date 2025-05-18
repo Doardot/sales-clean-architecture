@@ -2,6 +2,7 @@ package com.projarc.assignment1.interfaceAdaptadora.repositorios.implemRepositor
 
 import java.util.List;
 
+import com.projarc.assignment1.dominio.entidades.ItemDeEstoqueModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
@@ -50,12 +51,21 @@ public class EstoqueRepJPA implements IEstoqueRepositorio{
     }
 
     @Override
-    public List<ProdutoModel> listarEstoqueDisponivelParaProdutosInformados(List<ProdutoModel> produtos) {
+    public List<ItemDeEstoqueModel> listarEstoqueDisponivelParaTodosProdutos() {
         List<ItemDeEstoque> itens = estoqueRepository.findAll();
         return itens.stream()
-                .filter(it->produtos.contains(Produto.toProdutoModel(it.getProduto())))
                 .filter(it->it.getQuantidade()>0)
-                .map(it->Produto.toProdutoModel(it.getProduto()))
+                .map(ItemDeEstoqueModel::toItemDeEstoqueModel)
+                .toList();
+    }
+
+    @Override
+    public List<ItemDeEstoqueModel> listarEstoqueDisponivelParaProdutosInformados(List<Long> idProdutos) {
+        List<ItemDeEstoque> itens = estoqueRepository.findAll();
+        return itens.stream()
+                .filter(it->idProdutos.contains(it.getId()))
+                .filter(it->it.getQuantidade()>0)
+                .map(ItemDeEstoqueModel::toItemDeEstoqueModel)
                 .toList();
     }
 
