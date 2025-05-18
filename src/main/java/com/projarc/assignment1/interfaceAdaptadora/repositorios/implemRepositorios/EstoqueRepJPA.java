@@ -70,6 +70,16 @@ public class EstoqueRepJPA implements IEstoqueRepositorio{
     }
 
     @Override
+    public int quantidadeMaximaEmEstoque(long codigo) {
+        ItemDeEstoque item = estoqueRepository.findById(codigo).orElse(null);
+        if (item == null){
+            return -1;
+        }else{
+            return item.getEstoqueMax();
+        }
+    }
+
+    @Override
     public int quantidadeMinimaEmEstoque(long codigo) {
         ItemDeEstoque item = estoqueRepository.findById(codigo).orElse(null);
         if (item == null){

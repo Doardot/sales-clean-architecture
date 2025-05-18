@@ -3,6 +3,7 @@ package com.projarc.assignment1.interfaceAdaptadora.controladores;
 import java.util.List;
 
 //import org.springframework.beans.factory.annotation.Autowired;
+import com.projarc.assignment1.aplicacao.casosDeUso.AdicionaProdutoUC;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,6 +23,7 @@ import com.projarc.assignment1.aplicacao.dtos.ProdutoDTO;
 @AllArgsConstructor
 public class ProdutoController {
     private ProdutosDisponiveisUC produtosDisponiveis;
+    private AdicionaProdutoUC adicionaProdutoUC;
 
     @GetMapping("catalogoProdutos")
     public List<ProdutoDTO> listarTodosProdutos(){
@@ -32,5 +34,11 @@ public class ProdutoController {
     @CrossOrigin(origins = "*")
     public List<ProdutoDTO> produtosDisponiveis(){
         return produtosDisponiveis.run();
+    }
+
+    @PostMapping("adicionarProduto/{id}")
+    @CrossOrigin(origins = "*")
+    public int adicionarProduto(@PathVariable(value="id") long idProduto, @RequestBody int qtdProduto){
+        return adicionaProdutoUC.run(idProduto, qtdProduto);
     }
 }
