@@ -3,6 +3,7 @@ package com.projarc.assignment1.interfaceAdaptadora.repositorios.implemRepositor
 import java.time.LocalDate;
 import java.util.List;
 
+import com.projarc.assignment1.interfaceAdaptadora.repositorios.entidades.Endereco;
 import com.projarc.assignment1.interfaceAdaptadora.repositorios.entidades.Orcamento;
 import com.projarc.assignment1.interfaceAdaptadora.repositorios.interfaceJPA.OrcamentoJPA_ItfRep;
 import org.springframework.context.annotation.Primary;
@@ -66,12 +67,15 @@ public class OrcamentoRepJPA implements IOrcamentoRepositorio {
 
     @Override
     public OrcamentoModel cadastraOrcamento(OrcamentoModel orcamento) {
+        Endereco enderecoEntity = new Endereco(
+                orcamento.getEndereco().getEstado(),
+                orcamento.getEndereco().getPais()
+        );
         Orcamento orcamentoEntity = new Orcamento();
         orcamentoEntity.setId(orcamento.getId());
         orcamentoEntity.setData(orcamento.getData());
         orcamentoEntity.setNomeCliente(orcamento.getNomeCliente());
-        orcamentoEntity.setEstado(orcamento.getEstado());
-        orcamentoEntity.setPais(orcamento.getPais());
+        orcamentoEntity.setEndereco(enderecoEntity);
         orcamentoEntity.setSomatorioCustoItens(orcamento.getSomatorioCustoItens());
         orcamentoEntity.setImpostoEstadual(orcamento.getImpostoEstadual());
         orcamentoEntity.setImpostoFederal(orcamento.getImpostoFederal());

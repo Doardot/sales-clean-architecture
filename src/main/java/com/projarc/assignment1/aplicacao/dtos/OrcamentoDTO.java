@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.projarc.assignment1.dominio.entidades.EnderecoModel;
 import com.projarc.assignment1.dominio.entidades.ItemPedidoModel;
 import com.projarc.assignment1.dominio.entidades.OrcamentoModel;
 import lombok.AllArgsConstructor;
@@ -18,8 +19,7 @@ public class OrcamentoDTO {
     private LocalDate data = LocalDate.now();
     private String nomeCliente;
     private List<ItemPedidoDTO> itens;
-    private String estado;
-    private String pais;
+    private EnderecoModel endereco;
     private double somatorioCustoItens;
     private double impostoEstadual;
     private double impostoFederal;
@@ -37,8 +37,7 @@ public class OrcamentoDTO {
             orcamento.getData(),
             orcamento.getNomeCliente(),
             itens,
-            orcamento.getEstado(),
-            orcamento.getPais(),
+            orcamento.getEndereco(),
             orcamento.getSomatorioCustoItens(),
             orcamento.getImpostoEstadual(),
             orcamento.getImpostoFederal(),

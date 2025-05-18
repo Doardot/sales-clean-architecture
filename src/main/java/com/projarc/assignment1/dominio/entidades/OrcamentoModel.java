@@ -18,8 +18,7 @@ public class OrcamentoModel {
     private LocalDate data = LocalDate.now();
     private String nomeCliente;
     private List<ItemPedidoModel> itens;
-    private String estado;
-    private String pais;
+    private EnderecoModel endereco;
     private double somatorioCustoItens;
     private double impostoEstadual;
     private double impostoFederal;

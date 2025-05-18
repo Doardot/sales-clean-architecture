@@ -10,9 +10,11 @@ public class EstadoValidacao extends EnderecoValidacao {
 
     @Override
     public void check(OrcamentoModel orcamento) {
-        if (!ESTADOS_ATENDIDOS.contains(orcamento.getEstado())) {
-            throw new IllegalArgumentException("Estado não atendido: " + orcamento.getEstado());
+        String estado = orcamento.getEndereco().getEstado();
+        if (!ESTADOS_ATENDIDOS.contains(estado)) {
+            throw new IllegalArgumentException("Estado não atendido: " + estado);
         }
         if (next != null) next.check(orcamento);
     }
 }
+

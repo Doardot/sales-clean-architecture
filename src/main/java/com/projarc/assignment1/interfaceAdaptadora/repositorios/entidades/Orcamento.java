@@ -1,5 +1,6 @@
 package com.projarc.assignment1.interfaceAdaptadora.repositorios.entidades;
 
+import com.projarc.assignment1.dominio.entidades.EnderecoModel;
 import com.projarc.assignment1.dominio.entidades.OrcamentoModel;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -16,8 +17,8 @@ public class Orcamento {
     private long id;
     private LocalDate data = LocalDate.now();
     private String nomeCliente;
-    private String estado;
-    private String pais;
+    @Embedded
+    private Endereco endereco;
     private double somatorioCustoItens;
     private double impostoEstadual;
     private double impostoFederal;
@@ -32,13 +33,17 @@ public class Orcamento {
     public Orcamento() { }
 
     public static OrcamentoModel toOrcamentoModel(Orcamento orcamento) {
+        EnderecoModel enderecoModel = new EnderecoModel(
+                orcamento.getEndereco().getEstado(),
+                orcamento.getEndereco().getPais()
+        );
+
         return new OrcamentoModel(
             orcamento.getId(),
             orcamento.getData(),
             orcamento.getNomeCliente(),
             orcamento.getItens().stream().map(ItemPedido::toItemPedidoModel).toList(),
-            orcamento.getEstado(),
-            orcamento.getPais(),
+            enderecoModel,
             orcamento.getSomatorioCustoItens(),
             orcamento.getImpostoEstadual(),
             orcamento.getImpostoFederal(),

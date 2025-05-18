@@ -10,8 +10,9 @@ public class PaisValidacao extends EnderecoValidacao {
 
     @Override
     public void check(OrcamentoModel orcamento) {
-        if (!PAISES_ATENDIDOS.contains(orcamento.getPais())) {
-            throw new IllegalArgumentException("País não atendido: " + orcamento.getPais());
+        String pais = orcamento.getEndereco().getPais();
+        if (!PAISES_ATENDIDOS.contains(pais)) {
+            throw new IllegalArgumentException("País não atendido: " + pais);
         }
         if (next != null) next.check(orcamento);
     }

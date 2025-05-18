@@ -1,10 +1,7 @@
 package com.projarc.assignment1.infra;
 
 import com.projarc.assignment1.dominio.entidades.OrcamentoModel;
-import com.projarc.assignment1.interfaceAdaptadora.repositorios.entidades.ItemDeEstoque;
-import com.projarc.assignment1.interfaceAdaptadora.repositorios.entidades.ItemPedido;
-import com.projarc.assignment1.interfaceAdaptadora.repositorios.entidades.Orcamento;
-import com.projarc.assignment1.interfaceAdaptadora.repositorios.entidades.Produto;
+import com.projarc.assignment1.interfaceAdaptadora.repositorios.entidades.*;
 import com.projarc.assignment1.interfaceAdaptadora.repositorios.interfaceJPA.EstoqueJPA_ItfRep;
 import com.projarc.assignment1.interfaceAdaptadora.repositorios.interfaceJPA.OrcamentoJPA_ItfRep;
 import com.projarc.assignment1.interfaceAdaptadora.repositorios.interfaceJPA.ProdutoJPA_ItfRep;
@@ -36,7 +33,9 @@ public class DataSeeder implements CommandLineRunner {
         estoqueRepository.save(new ItemDeEstoque(7, produtoTest1, 10, 1, 20));
         estoqueRepository.save(new ItemDeEstoque(4, produtoTest2, 24, 12, 46));
 
-        orcamentoRepository.save(new Orcamento(9, LocalDate.parse("2025-10-01"), "Cliente Teste", "SP", "Brasil",
+        Endereco endereco = new Endereco("SP", "Brasil");
+
+        orcamentoRepository.save(new Orcamento(9, LocalDate.parse("2025-10-01"), "Cliente Teste", endereco,
                 0.0, 0.0, 0.0, 0.0, 0.0, OrcamentoModel.Status.PENDENTE,
                 List.of(new ItemPedido(10, 4, produtoTest1), new ItemPedido(93, 3, produtoTest2))));
     }

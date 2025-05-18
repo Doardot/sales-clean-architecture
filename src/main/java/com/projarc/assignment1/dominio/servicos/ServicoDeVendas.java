@@ -2,6 +2,8 @@ package com.projarc.assignment1.dominio.servicos;
 
 import java.util.List;
 
+import com.projarc.assignment1.auxiliar.*;
+import com.projarc.assignment1.dominio.entidades.EnderecoModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,19 +32,35 @@ public class ServicoDeVendas {
         return this.orcamentos.recuperaOrcamentoPorId(id);
     }
 
-    public OrcamentoModel criaOrcamento(PedidoModel pedido) {
-        var novoOrcamento = new OrcamentoModel(0);
+    public OrcamentoModel criaOrcamento(PedidoModel pedido, String pais, String estado) {
+        EnderecoModel endereco = new EnderecoModel(estado, pais);
+        OrcamentoModel novoOrcamento = new OrcamentoModel(0);
+        novoOrcamento.setEndereco(endereco);
         novoOrcamento.addItensPedido(pedido);
+
+        IEndereco validadorEndereco = new PaisValidacao();
+        validadorEndereco.linkWith(new EstadoValidacao());
+        validadorEndereco.check(novoOrcamento);
+
         double custoItens = novoOrcamento.getItens().stream()
-            .mapToDouble(it->it.getProduto().getPrecoUnitario()*it.getQuantidade())
-            .sum();
-        novoOrcamento.setImpostoFederal(custoItens * 0.15);
-        if (novoOrcamento.getItens().size() > 5){
-                novoOrcamento.setDesconto(custoItens * 0.05);
-            }else{
-                novoOrcamento.setDesconto(0.0);
-            }
-        novoOrcamento.setValorFinal(custoItens + novoOrcamento.getImpostoFederal() + novoOrcamento.getImpostoEstadual() - novoOrcamento.getDesconto());
+                .mapToDouble(it -> it.getProduto().getPrecoUnitario() * it.getQuantidade())
+                .sum();
+        novoOrcamento.setSomatorioCustoItens(custoItens);
+
+        IImposto impostoFederal = new ImpostoFederal();
+        novoOrcamento.setImpostoFederal(impostoFederal.calcularImposto(novoOrcamento));
+
+        IImposto impostoEstadual = EstadoFactory.obterImpostoPorEstado(estado);
+        novoOrcamento.setImpostoEstadual(impostoEstadual.calcularImposto(novoOrcamento));
+
+        IDesconto desconto = new Desconto();
+        double valorDesconto = desconto.calcularDesconto(novoOrcamento);
+        novoOrcamento.setDesconto(valorDesconto);
+
+        novoOrcamento.setValorFinal(
+                custoItens + novoOrcamento.getImpostoFederal() + novoOrcamento.getImpostoEstadual() - valorDesconto
+        );
+
         return this.orcamentos.cadastraOrcamento(novoOrcamento);
     }
  
