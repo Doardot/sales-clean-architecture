@@ -26,8 +26,8 @@ public class OrcamentoController {
 
     @PostMapping("novoOrcamento")
     @CrossOrigin(origins = "*")
-    public OrcamentoDTO novoOrcamento(@RequestBody List<ItemPedidoDTO> itens){
-        return criaOrcamento.run(itens);
+    public OrcamentoDTO novoOrcamento(@RequestBody OrcamentoDTO dto){
+        return criaOrcamento.run(dto);
     }
 
     @PostMapping("efetivaOrcamento/{id}")

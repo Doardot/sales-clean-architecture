@@ -20,14 +20,18 @@ public class CriaOrcamentoUC {
     private final ServicoDeVendas servicoDeVendas;
     private final ServicoDeEstoque servicoDeEstoque;
 
-    public OrcamentoDTO run(List<ItemPedidoDTO> itens){
-        PedidoModel pedido = new PedidoModel();
-        for(ItemPedidoDTO item : itens){
+    public OrcamentoDTO run(OrcamentoDTO dto) {
+        PedidoModel pedido = new PedidoModel(0);
+        for (ItemPedidoDTO item : dto.getItens()) {
             ProdutoModel produto = servicoDeEstoque.produtoPorCodigo(item.getIdProduto());
             ItemPedidoModel itemPedido = new ItemPedidoModel(produto, item.getQtd());
             pedido.addItem(itemPedido);
         }
-        OrcamentoModel orcamento = servicoDeVendas.criaOrcamento(pedido);
+
+        String estado = dto.getEndereco().getEstado();
+        String pais = dto.getEndereco().getPais();
+
+        OrcamentoModel orcamento = servicoDeVendas.criaOrcamento(pedido, pais, estado);
         return OrcamentoDTO.fromModel(orcamento);
     }
 }
