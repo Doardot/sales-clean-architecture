@@ -27,17 +27,17 @@ public class DataSeeder implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        Produto produtoTest1 = new Produto(3,"Maça", 10.0);
-        Produto produtoTest2 = new Produto(6, "Banana", 10.0);
+        Produto produtoTest1 = new Produto("Maça", 10.0);
+        Produto produtoTest2 = new Produto("Banana", 10.0);
 
         produtoRepository.save(produtoTest1);
         produtoRepository.save(produtoTest2);
 
-        estoqueRepository.save(new ItemDeEstoque(7, produtoTest1, 10, 1, 20));
-        estoqueRepository.save(new ItemDeEstoque(4, produtoTest2, 24, 12, 46));
+        estoqueRepository.save(new ItemDeEstoque(produtoTest1, 10, 1, 20));
+        estoqueRepository.save(new ItemDeEstoque(produtoTest2, 24, 12, 46));
 
-        orcamentoRepository.save(new Orcamento(9, LocalDate.parse("2025-10-01"), "Cliente Teste", "SP", "Brasil",
-                0.0, 0.0, 0.0, 0.0, 0.0, OrcamentoModel.Status.PENDENTE,
-                List.of(new ItemPedido(10, 4, produtoTest1), new ItemPedido(93, 3, produtoTest2))));
+        // orcamentoRepository.save(new Orcamento(9, LocalDate.parse("2025-10-01"), "Cliente Teste", "SP", "Brasil",
+        //         0.0, 0.0, 0.0, 0.0, 0.0, OrcamentoModel.Status.PENDENTE,
+        //         List.of(new ItemPedido(10, 4, produtoTest1), new ItemPedido(93, 3, produtoTest2))));
     }
 }

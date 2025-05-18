@@ -7,11 +7,10 @@ import lombok.Getter;
 
 @Getter
 public class PedidoModel {
-    private final long id;
+    private long id;
     private final List<ItemPedidoModel> itens;
 
-    public PedidoModel(long id) {
-        this.id = id;
+    public PedidoModel() {
         this.itens = new LinkedList<>();
     }
 

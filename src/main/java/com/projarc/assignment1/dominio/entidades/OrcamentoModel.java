@@ -27,8 +27,7 @@ public class OrcamentoModel {
     private double valorFinal;
     private Status status = Status.PENDENTE;
 
-    public OrcamentoModel(long id) {
-        this.id = id;
+    public OrcamentoModel() {
         this.itens = new LinkedList<>();
     }
 
@@ -49,6 +48,7 @@ public class OrcamentoModel {
     public boolean estaValido() {
         LocalDate dataAtual = LocalDate.now();
         LocalDate dataLimite = data.plusDays(21);
+
         return status == Status.PENDENTE && dataAtual.isBefore(dataLimite);
     }
 

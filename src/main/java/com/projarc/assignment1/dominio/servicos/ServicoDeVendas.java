@@ -5,9 +5,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.projarc.assignment1.aplicacao.dtos.OrcamentoDTO;
+import com.projarc.assignment1.dominio.entidades.ItemPedidoModel;
 import com.projarc.assignment1.dominio.entidades.OrcamentoModel;
 import com.projarc.assignment1.dominio.entidades.PedidoModel;
 import com.projarc.assignment1.dominio.entidades.ProdutoModel;
+import com.projarc.assignment1.dominio.entidades.OrcamentoModel.Status;
 import com.projarc.assignment1.dominio.interfRepositorios.IEstoqueRepositorio;
 import com.projarc.assignment1.dominio.interfRepositorios.IOrcamentoRepositorio;
 
@@ -31,7 +34,7 @@ public class ServicoDeVendas {
     }
 
     public OrcamentoModel criaOrcamento(PedidoModel pedido) {
-        var novoOrcamento = new OrcamentoModel(0);
+        var novoOrcamento = new OrcamentoModel();
         novoOrcamento.addItensPedido(pedido);
         double custoItens = novoOrcamento.getItens().stream()
             .mapToDouble(it->it.getProduto().getPrecoUnitario()*it.getQuantidade())
@@ -47,15 +50,33 @@ public class ServicoDeVendas {
     }
  
     public OrcamentoModel efetivaOrcamento(long id) {
-        // Recupera o orçamento
-    
-        // Verifica se tem quantidade em estoque para todos os itens
+        OrcamentoModel orcamento = this.recuperaOrcamentoPorId(id);
 
-        // Se tem quantidade para todos os itens, da baixa no estoque para todos
+        if (orcamento.getStatus() == Status.EFETIVADO) {
+            return orcamento;
+        }
 
-        // Marca o orcamento como efetivado
+        if (!orcamento.estaValido()) {
 
-        // Retorna o orçamento marcado como efetivado ou não conforme disponibilidade do estoque
-        return null;
+            orcamentos.marcaComoCancelado(id);
+            return this.recuperaOrcamentoPorId(id);
+        }
+
+        for (ItemPedidoModel item : orcamento.getItens()) {
+            int qtdEmEstoque = this.estoque.quantidadeEmEstoque(item.getProduto().getId());
+            int estoqueMinimo = this.estoque.quantidadeMinimaEmEstoque(item.getProduto().getId());
+            if (qtdEmEstoque - item.getQuantidade() < estoqueMinimo) {
+                orcamentos.marcaComoCancelado(id);
+                return this.recuperaOrcamentoPorId(id);
+            }
+        }
+
+        for (ItemPedidoModel item : orcamento.getItens()) {
+            this.estoque.baixaEstoque(item.getProduto().getId(), item.getQuantidade());
+        }
+
+        orcamentos.marcaComoEfetivado(id);
+        return this.recuperaOrcamentoPorId(id);
+
     }
 }

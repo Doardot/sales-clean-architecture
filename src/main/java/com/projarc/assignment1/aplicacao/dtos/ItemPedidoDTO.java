@@ -11,11 +11,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ItemPedidoDTO {
     private long idProduto;
-    private int qtdade;
+    private int qtd;
 
     @Override
     public String toString() {
-        return "ItemPedidoDTO [idProduto=" + idProduto + ", qtdade=" + qtdade + "]";
+        return "ItemPedidoDTO [idProduto=" + idProduto + ", qtdade=" + qtd + "]";
     }    
 
     public static ItemPedidoDTO fromModel(ItemPedidoModel item){

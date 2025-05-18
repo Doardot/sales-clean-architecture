@@ -1,10 +1,15 @@
 package com.projarc.assignment1.interfaceAdaptadora.repositorios.implemRepositorios;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
+import com.projarc.assignment1.interfaceAdaptadora.repositorios.entidades.ItemPedido;
 import com.projarc.assignment1.interfaceAdaptadora.repositorios.entidades.Orcamento;
 import com.projarc.assignment1.interfaceAdaptadora.repositorios.interfaceJPA.OrcamentoJPA_ItfRep;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 
@@ -14,13 +19,18 @@ import com.projarc.assignment1.dominio.interfRepositorios.IOrcamentoRepositorio;
 @Repository
 @Primary
 public class OrcamentoRepJPA implements IOrcamentoRepositorio {
-    private OrcamentoJPA_ItfRep orcamentoRepository;
+    private final OrcamentoJPA_ItfRep orcamentoRepository;
+
+    @Autowired
+    public OrcamentoRepJPA(OrcamentoJPA_ItfRep orcamentoRepository) {
+        this.orcamentoRepository = orcamentoRepository;
+    }
 
     @Override
     public List<OrcamentoModel> listarTodosOrcamentos() {
         List<Orcamento> orcamentos = orcamentoRepository.findAll();
         return orcamentos.stream()
-                .map(Orcamento::toOrcamentoModel)
+                 .map(Orcamento::toOrcamentoModel)
                 .toList();
     }
 
@@ -67,7 +77,7 @@ public class OrcamentoRepJPA implements IOrcamentoRepositorio {
     @Override
     public OrcamentoModel cadastraOrcamento(OrcamentoModel orcamento) {
         Orcamento orcamentoEntity = new Orcamento();
-        orcamentoEntity.setId(orcamento.getId());
+    //    orcamentoEntity.setId(orcamento.getId());
         orcamentoEntity.setData(orcamento.getData());
         orcamentoEntity.setNomeCliente(orcamento.getNomeCliente());
         orcamentoEntity.setEstado(orcamento.getEstado());
@@ -78,6 +88,11 @@ public class OrcamentoRepJPA implements IOrcamentoRepositorio {
         orcamentoEntity.setDesconto(orcamento.getDesconto());
         orcamentoEntity.setValorFinal(orcamento.getValorFinal());
         orcamentoEntity.setStatus(orcamento.getStatus());
+        
+        List<ItemPedido> itens = orcamento.getItens().stream()
+                .map(ItemPedido::fromItemPedidoModel)
+                .collect(Collectors.toList());
+        orcamentoEntity.setItens(itens);
 
         return Orcamento.toOrcamentoModel(orcamentoRepository.save(orcamentoEntity));
     }

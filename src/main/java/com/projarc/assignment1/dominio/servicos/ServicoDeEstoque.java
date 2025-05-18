@@ -40,11 +40,11 @@ public class ServicoDeEstoque{
         return estoque.quantidadeEmEstoque(id);
     }
 
-    public void baixaEstoque(long id,int quantidade){
+    public void baixaEstoque(long id, int quantidade){
         estoque.baixaEstoque(id, quantidade);
     }
 
-    public void aumentaEstoque(long id,int quantidade){
+    public void aumentaEstoque(long id, int quantidade){
         estoque.aumentaEstoque(id, quantidade);
     }
 }
