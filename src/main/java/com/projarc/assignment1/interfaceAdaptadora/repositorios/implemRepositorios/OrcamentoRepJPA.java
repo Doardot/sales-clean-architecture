@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.projarc.assignment1.interfaceAdaptadora.repositorios.entidades.Endereco;
+import com.projarc.assignment1.interfaceAdaptadora.repositorios.entidades.ItemPedido;
 import com.projarc.assignment1.interfaceAdaptadora.repositorios.entidades.Orcamento;
 import com.projarc.assignment1.interfaceAdaptadora.repositorios.interfaceJPA.OrcamentoJPA_ItfRep;
 

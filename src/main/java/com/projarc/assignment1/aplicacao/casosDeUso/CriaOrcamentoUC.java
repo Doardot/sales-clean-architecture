@@ -21,7 +21,7 @@ public class CriaOrcamentoUC {
     private final ServicoDeEstoque servicoDeEstoque;
 
     public OrcamentoDTO run(OrcamentoDTO dto) {
-        PedidoModel pedido = new PedidoModel(0);
+        PedidoModel pedido = new PedidoModel();
         for (ItemPedidoDTO item : dto.getItens()) {
             ProdutoModel produto = servicoDeEstoque.produtoPorCodigo(item.getIdProduto());
             ItemPedidoModel itemPedido = new ItemPedidoModel(produto, item.getQtd());

@@ -28,8 +28,7 @@ public class ItemPedido {
     public ItemPedido(int quantidade, Produto produto) {
     this.quantidade = quantidade;
     this.produto = produto;
-}
-
+    }
 
     @Override
     public String toString() {

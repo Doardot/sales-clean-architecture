@@ -35,8 +35,10 @@ public class DataSeeder implements CommandLineRunner {
 
         Endereco endereco = new Endereco("SP", "Brasil");
 
-        orcamentoRepository.save(new Orcamento(9, LocalDate.parse("2025-10-01"), "Cliente Teste", endereco,
-                0.0, 0.0, 0.0, 0.0, 0.0, OrcamentoModel.Status.PENDENTE,
-                List.of(new ItemPedido(10, 4, produtoTest1), new ItemPedido(93, 3, produtoTest2))));
+        orcamentoRepository.save(new Orcamento(LocalDate.parse("2025-10-01"),
+        "Cliente Teste", endereco,
+        0.0, 0.0, 0.0, 0.0, 0.0, OrcamentoModel.Status.PENDENTE,
+        List.of(new ItemPedido(4, produtoTest1), new ItemPedido(3,
+        produtoTest2))));
     }
 }
