@@ -24,14 +24,14 @@ public class DataSeeder implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        Produto produtoTest1 = new Produto(3,"Maça", 10.0);
-        Produto produtoTest2 = new Produto(6, "Banana", 10.0);
+        Produto produtoTest1 = new Produto("Maça", 10.0);
+        Produto produtoTest2 = new Produto("Banana", 10.0);
 
         produtoRepository.save(produtoTest1);
         produtoRepository.save(produtoTest2);
 
-        estoqueRepository.save(new ItemDeEstoque(7, produtoTest1, 10, 1, 20));
-        estoqueRepository.save(new ItemDeEstoque(4, produtoTest2, 24, 12, 46));
+        estoqueRepository.save(new ItemDeEstoque(produtoTest1, 10, 1, 20));
+        estoqueRepository.save(new ItemDeEstoque(produtoTest2, 24, 12, 46));
 
         Endereco endereco = new Endereco("SP", "Brasil");
 

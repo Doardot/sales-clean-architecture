@@ -17,14 +17,14 @@ import com.projarc.assignment1.dominio.servicos.ServicoDeVendas;
 @Component
 @RequiredArgsConstructor
 public class CriaOrcamentoUC {
-    private ServicoDeVendas servicoDeVendas;
-    private ServicoDeEstoque servicoDeEstoque;
+    private final ServicoDeVendas servicoDeVendas;
+    private final ServicoDeEstoque servicoDeEstoque;
 
     public OrcamentoDTO run(OrcamentoDTO dto) {
         PedidoModel pedido = new PedidoModel(0);
         for (ItemPedidoDTO item : dto.getItens()) {
             ProdutoModel produto = servicoDeEstoque.produtoPorCodigo(item.getIdProduto());
-            ItemPedidoModel itemPedido = new ItemPedidoModel(produto, item.getQtdade());
+            ItemPedidoModel itemPedido = new ItemPedidoModel(produto, item.getQtd());
             pedido.addItem(itemPedido);
         }
 

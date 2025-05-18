@@ -1,13 +1,17 @@
 package com.projarc.assignment1.interfaceAdaptadora.repositorios.entidades;
 
+import io.micrometer.common.lang.Nullable;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 
 @Entity
 public class ItemDeEstoque {  
-    @Id  
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @ManyToOne(cascade = CascadeType.REFRESH)
     private Produto produto;
@@ -15,8 +19,7 @@ public class ItemDeEstoque {
     private int estoqueMin;
     private int estoqueMax;
 
-    public ItemDeEstoque(long id, Produto produto, int quantidade, int estoqueMin, int estoqueMax) {
-        this.id = id;
+    public ItemDeEstoque(Produto produto, int quantidade, int estoqueMin, int estoqueMax) {
         this.produto = produto;
         this.quantidade = quantidade;
         this.estoqueMin = estoqueMin;

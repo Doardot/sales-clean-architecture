@@ -1,6 +1,7 @@
 package com.projarc.assignment1.dominio.entidades;
 
 import lombok.Data;
+import jakarta.persistence.Entity;
 import lombok.AllArgsConstructor;
 
 @Data

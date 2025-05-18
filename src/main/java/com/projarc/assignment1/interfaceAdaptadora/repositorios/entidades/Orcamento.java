@@ -14,6 +14,7 @@ import java.util.List;
 @Data
 public class Orcamento {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private LocalDate data = LocalDate.now();
     private String nomeCliente;

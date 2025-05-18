@@ -30,7 +30,7 @@ public class OrcamentoController {
         return criaOrcamento.run(dto);
     }
 
-    @GetMapping("efetivaOrcamento/{id}")
+    @PostMapping("efetivaOrcamento/{id}")
     @CrossOrigin(origins = "*")
     public OrcamentoDTO efetivaOrcamento(@PathVariable(value="id") long idOrcamento){
         return efetivaOrcamento.run(idOrcamento);
