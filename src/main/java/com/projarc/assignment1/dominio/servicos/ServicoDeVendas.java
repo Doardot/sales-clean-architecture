@@ -36,10 +36,11 @@ public class ServicoDeVendas {
         return this.orcamentos.recuperaOrcamentoPorId(id);
     }
 
-    public OrcamentoModel criaOrcamento(PedidoModel pedido, String pais, String estado) {
+    public OrcamentoModel criaOrcamento(PedidoModel pedido, String pais, String estado, String nomeCliente) {
         EnderecoModel endereco = new EnderecoModel(estado, pais);
         OrcamentoModel novoOrcamento = new OrcamentoModel();
         novoOrcamento.setEndereco(endereco);
+        novoOrcamento.setNomeCliente(nomeCliente);
         novoOrcamento.addItensPedido(pedido);
 
         IEndereco validadorEndereco = new PaisValidacao();
@@ -51,7 +52,7 @@ public class ServicoDeVendas {
                 .sum();
         novoOrcamento.setSomatorioCustoItens(custoItens);
 
-        IImposto impostoFederal = new ImpostoFederal();
+        IImposto impostoFederal = PaisFactory.obterImpostoPorPais(pais);
         novoOrcamento.setImpostoFederal(impostoFederal.calcularImposto(novoOrcamento));
 
         IImposto impostoEstadual = EstadoFactory.obterImpostoPorEstado(estado);

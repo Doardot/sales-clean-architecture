@@ -10,7 +10,7 @@ public class EstadoFactory {
             case "PE":
                 return new ImpostoPE();
             default:
-                throw new IllegalArgumentException("Estado não atentido: " + estado);
+                throw new IllegalArgumentException("Estado não atendido: " + estado);
         }
     }
 }

@@ -3,6 +3,7 @@ package com.projarc.assignment1.aplicacao.casosDeUso;
 import java.util.List;
 
 import lombok.RequiredArgsConstructor;
+import org.hibernate.tool.schema.internal.exec.ScriptTargetOutputToFile;
 import org.springframework.stereotype.Component;
 
 import com.projarc.assignment1.aplicacao.dtos.ItemPedidoDTO;
@@ -31,7 +32,9 @@ public class CriaOrcamentoUC {
         String estado = dto.getEndereco().getEstado();
         String pais = dto.getEndereco().getPais();
 
-        OrcamentoModel orcamento = servicoDeVendas.criaOrcamento(pedido, pais, estado);
+        String nomeCliente = dto.getNomeCliente();
+
+        OrcamentoModel orcamento = servicoDeVendas.criaOrcamento(pedido, pais, estado, nomeCliente);
         return OrcamentoDTO.fromModel(orcamento);
     }
 }
