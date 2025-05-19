@@ -1,6 +1,5 @@
 package com.projarc.assignment1.interfaceAdaptadora.repositorios.interfaceJPA;
 
-import com.projarc.assignment1.dominio.entidades.OrcamentoModel;
 import com.projarc.assignment1.interfaceAdaptadora.repositorios.entidades.Orcamento;
 import org.springframework.data.repository.CrudRepository;
 
