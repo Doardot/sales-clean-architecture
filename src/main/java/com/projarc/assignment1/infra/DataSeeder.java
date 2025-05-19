@@ -5,7 +5,6 @@ import com.projarc.assignment1.interfaceAdaptadora.repositorios.entidades.*;
 import com.projarc.assignment1.interfaceAdaptadora.repositorios.interfaceJPA.EstoqueJPA_ItfRep;
 import com.projarc.assignment1.interfaceAdaptadora.repositorios.interfaceJPA.OrcamentoJPA_ItfRep;
 import com.projarc.assignment1.interfaceAdaptadora.repositorios.interfaceJPA.ProdutoJPA_ItfRep;
-import com.projarc.assignment1.interfaceAdaptadora.repositorios.interfaceJPA.ItemPedidoJPA_ItfRep;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -19,7 +18,6 @@ public class DataSeeder implements CommandLineRunner {
     private final EstoqueJPA_ItfRep estoqueRepository;
     private final OrcamentoJPA_ItfRep orcamentoRepository;
     private final ProdutoJPA_ItfRep produtoRepository;
-    private final ItemPedidoJPA_ItfRep itemPedidoRepository;
 
     @Override
     public void run(String... args) {
