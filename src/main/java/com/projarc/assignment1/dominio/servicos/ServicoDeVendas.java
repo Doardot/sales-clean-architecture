@@ -1,5 +1,6 @@
 package com.projarc.assignment1.dominio.servicos;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import com.projarc.assignment1.auxiliar.*;
@@ -96,5 +97,9 @@ public class ServicoDeVendas {
         orcamentos.marcaComoEfetivado(id);
         return this.recuperaOrcamentoPorId(id);
 
+    }
+
+    public List<OrcamentoModel> listarOrcamentoPorPeriodo(LocalDate dataInicio, LocalDate dataFim) {
+        return this.orcamentos.listarOrcamentoPorPeriodo(dataInicio, dataFim);
     }
 }
