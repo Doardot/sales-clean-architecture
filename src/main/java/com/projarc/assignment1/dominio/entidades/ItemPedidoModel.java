@@ -1,6 +1,5 @@
 package com.projarc.assignment1.dominio.entidades;
 
-import jakarta.persistence.Entity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -9,12 +8,4 @@ import lombok.Getter;
 public class ItemPedidoModel {
     private final ProdutoModel produto;
     private final int quantidade;
-
-    public double calcularSubtotal() {
-        return produto.getPrecoUnitario() * quantidade;
-    }
-
-    public boolean temDescontoQuantidade() {
-        return quantidade > 3;
-    }
 }

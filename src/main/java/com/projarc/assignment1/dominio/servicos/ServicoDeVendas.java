@@ -3,19 +3,24 @@ package com.projarc.assignment1.dominio.servicos;
 import java.time.LocalDate;
 import java.util.List;
 
-import com.projarc.assignment1.auxiliar.*;
+import com.projarc.assignment1.dominio.descontos.Desconto;
+import com.projarc.assignment1.dominio.descontos.IDesconto;
 import com.projarc.assignment1.dominio.entidades.EnderecoModel;
+import com.projarc.assignment1.dominio.factories.EstadoFactory;
+import com.projarc.assignment1.dominio.factories.PaisFactory;
+import com.projarc.assignment1.dominio.impostos.IImposto;
+import com.projarc.assignment1.dominio.validacoes.EstadoValidacao;
+import com.projarc.assignment1.dominio.validacoes.PaisValidacao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.projarc.assignment1.aplicacao.dtos.OrcamentoDTO;
 import com.projarc.assignment1.dominio.entidades.ItemPedidoModel;
 import com.projarc.assignment1.dominio.entidades.OrcamentoModel;
 import com.projarc.assignment1.dominio.entidades.PedidoModel;
-import com.projarc.assignment1.dominio.entidades.ProdutoModel;
 import com.projarc.assignment1.dominio.entidades.OrcamentoModel.Status;
 import com.projarc.assignment1.dominio.interfRepositorios.IEstoqueRepositorio;
 import com.projarc.assignment1.dominio.interfRepositorios.IOrcamentoRepositorio;
+import com.projarc.assignment1.dominio.entidades.IEndereco;
 
 @Service
 public class ServicoDeVendas {
@@ -26,10 +31,6 @@ public class ServicoDeVendas {
     public ServicoDeVendas(IOrcamentoRepositorio orcamentos,IEstoqueRepositorio estoque){
         this.orcamentos = orcamentos;
         this.estoque = estoque;
-    }
-    
-    public List<ProdutoModel> produtosDisponiveis() {
-        return estoque.listarTodosProdutosComEstoque();
     }
 
     public OrcamentoModel recuperaOrcamentoPorId(long id) {

@@ -1,4 +1,4 @@
-package com.projarc.assignment1.auxiliar;
+package com.projarc.assignment1.dominio.validacoes;
 
 import java.util.Set;
 import java.util.HashSet;

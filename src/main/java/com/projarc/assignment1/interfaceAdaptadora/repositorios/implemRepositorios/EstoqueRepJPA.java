@@ -25,27 +25,10 @@ public class EstoqueRepJPA implements IEstoqueRepositorio{
     }
 
     @Override
-    public List<ProdutoModel> listarTodosProdutos() {
-        List<ItemDeEstoque> itens = estoqueRepository.findAll();
-        return itens.stream()
-                .map(it->Produto.toProdutoModel(it.getProduto()))
-                .toList();
-    }
-
-    @Override
     public List<ProdutoModel> listarTodosProdutosComEstoque() {
         List<ItemDeEstoque> itens = estoqueRepository.findAll();
         return itens.stream()
                 .filter(it->it.getQuantidade()>0)
-                .map(it->Produto.toProdutoModel(it.getProduto()))
-                .toList();
-    }
-
-    @Override
-    public List<ProdutoModel> listarTodosProdutosEsgotados() {
-        List<ItemDeEstoque> itens = estoqueRepository.findAll();
-        return itens.stream()
-                .filter(it->it.getQuantidade()<=0)
                 .map(it->Produto.toProdutoModel(it.getProduto()))
                 .toList();
     }
@@ -127,15 +110,5 @@ public class EstoqueRepJPA implements IEstoqueRepositorio{
         item.setQuantidade(novaQuantidade);
         estoqueRepository.save(item);
         return novaQuantidade;
-    }
-
-    @Override
-    public void salvarProduto(ProdutoModel produto) {
-        // TO-DO
-    }
-
-    @Override
-    public void removerProduto(ProdutoModel produto) {
-        // TO-DO
     }
 }

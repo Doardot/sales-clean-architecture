@@ -1,8 +1,5 @@
 package com.projarc.assignment1.interfaceAdaptadora.repositorios.implemRepositorios;
 
-import java.util.LinkedList;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
@@ -23,18 +20,6 @@ public class ProdutoRepJPA implements IProdutoRepositorio {
     }
 
     @Override
-    public List<ProdutoModel> listarTodosProdutos() {
-        List<Produto> produtos = produtoRepository.findAll();
-        if (produtos.isEmpty()) {
-            return new LinkedList<>();
-        } else {
-            return produtos.stream()
-                    .map(Produto::toProdutoModel)
-                    .toList();
-        }
-    }
-
-    @Override
     public ProdutoModel consultaProdutoPorId(long id) {
         Produto produto = produtoRepository.findById(id);
         System.out.println("Produto de codigo: "+id+": "+produto);
@@ -43,17 +28,5 @@ public class ProdutoRepJPA implements IProdutoRepositorio {
         } else {
             return Produto.toProdutoModel(produto);
         }
-    }
-
-    @Override
-    public void salvarProduto(ProdutoModel produto) {
-        Produto entidade = Produto.fromProdutoModel(produto);
-        produtoRepository.save(entidade);
-    }
-
-    @Override
-    public void removerProduto(ProdutoModel produto) {
-        Produto entidade = Produto.fromProdutoModel(produto);
-        produtoRepository.delete(entidade);
     }
 }

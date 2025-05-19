@@ -12,7 +12,5 @@ public interface OrcamentoJPA_ItfRep extends CrudRepository<Orcamento, Long> {
     @Override
     List<Orcamento> findAll();
     Optional<Orcamento> findById(long id);
-    List<Orcamento> findByStatus(OrcamentoModel.Status status);
-    List<Orcamento> findByNomeCliente(String nomeCliente);
     List<Orcamento> findByDataBetween(LocalDate dataInicio, LocalDate  dataFim);
 }

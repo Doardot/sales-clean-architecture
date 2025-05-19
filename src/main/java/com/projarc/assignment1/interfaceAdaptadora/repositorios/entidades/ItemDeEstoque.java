@@ -1,8 +1,5 @@
 package com.projarc.assignment1.interfaceAdaptadora.repositorios.entidades;
 
-import com.projarc.assignment1.dominio.entidades.ItemDeEstoqueModel;
-import com.projarc.assignment1.dominio.entidades.ProdutoModel;
-import io.micrometer.common.lang.Nullable;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -52,14 +49,6 @@ public class ItemDeEstoque {
 
     public void setQuantidade(int quantidade) {
         this.quantidade = quantidade;
-    }
-
-    public void setEstoqueMin(int estoqueMin) {
-        this.estoqueMin = estoqueMin;
-    }
-
-    public void setEstoqueMax(int estoqueMax) {
-        this.estoqueMax = estoqueMax;
     }
 
     @Override

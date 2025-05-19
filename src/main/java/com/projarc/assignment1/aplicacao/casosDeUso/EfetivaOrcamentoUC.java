@@ -1,11 +1,8 @@
 package com.projarc.assignment1.aplicacao.casosDeUso;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.projarc.assignment1.aplicacao.dtos.OrcamentoDTO;
-import com.projarc.assignment1.dominio.entidades.ItemPedidoModel;
-import com.projarc.assignment1.dominio.entidades.OrcamentoModel;
 import com.projarc.assignment1.dominio.servicos.ServicoDeEstoque;
 import com.projarc.assignment1.dominio.servicos.ServicoDeVendas;
 

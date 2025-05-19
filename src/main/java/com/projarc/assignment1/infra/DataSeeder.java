@@ -75,8 +75,6 @@ public class DataSeeder implements CommandLineRunner {
         itemPedidoRepository.save(itemPedido10);
 
         Endereco endereco1 = new Endereco("RS", "BR");
-        Endereco endereco2 = new Endereco("SP", "BR");
-        Endereco endereco3 = new Endereco("PE", "BR");
 
         orcamentoRepository.save(new Orcamento(LocalDate.parse("2025-10-01"),
         "Cliente Teste", endereco1,

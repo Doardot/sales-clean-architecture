@@ -23,28 +23,12 @@ public class ServicoDeEstoque{
         this.estoque = estoque;
     }
 
-    public List<ProdutoModel> todosProdutosCatalogo(){
-        return produtos.listarTodosProdutos();
-    }
-
     public List<ProdutoModel> produtosDisponiveis(){
         return estoque.listarTodosProdutosComEstoque();
     }
 
-    public List<ProdutoModel> produtosEsgotados(){
-        return estoque.listarTodosProdutosEsgotados();
-    }
-
     public ProdutoModel produtoPorCodigo(long id){
         return this.produtos.consultaProdutoPorId(id);
-    }
-
-    public int quantidadeEmEstoque(long id){
-        return estoque.quantidadeEmEstoque(id);
-    }
-
-    public void baixaEstoque(long id, int quantidade){
-        estoque.baixaEstoque(id, quantidade);
     }
 
     public int aumentaEstoque(long id, int quantidade){
