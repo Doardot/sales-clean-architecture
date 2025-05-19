@@ -2,7 +2,6 @@ package com.projarc.assignment1.interfaceAdaptadora.controladores;
 
 import java.util.List;
 
-//import org.springframework.beans.factory.annotation.Autowired;
 import com.projarc.assignment1.aplicacao.casosDeUso.AdicionaProdutoUC;
 import com.projarc.assignment1.aplicacao.casosDeUso.ListarQtdProdutosSelecionadosUC;
 import com.projarc.assignment1.aplicacao.casosDeUso.ListarQtdProdutosUC;

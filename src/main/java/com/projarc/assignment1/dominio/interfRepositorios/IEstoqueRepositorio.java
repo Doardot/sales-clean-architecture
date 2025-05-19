@@ -11,13 +11,7 @@ public interface IEstoqueRepositorio {
     int quantidadeMaximaEmEstoque(long codigo);
     int baixaEstoque(long codProd, int qtdade);
     int aumentaEstoque(long codProd, int qtdade);
-    List<ProdutoModel> listarTodosProdutos();
     List<ProdutoModel> listarTodosProdutosComEstoque();
-    List<ProdutoModel> listarTodosProdutosEsgotados();
     List<ItemDeEstoqueModel> listarEstoqueDisponivelParaTodosProdutos();
     List<ItemDeEstoqueModel> listarEstoqueDisponivelParaProdutosInformados(List<Long> produtos);
-
-    // seed
-    void salvarProduto(ProdutoModel produto);
-    void removerProduto(ProdutoModel produto);
 }

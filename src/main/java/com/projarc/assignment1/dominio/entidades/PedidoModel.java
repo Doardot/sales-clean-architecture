@@ -17,8 +17,4 @@ public class PedidoModel {
     public void addItem(ItemPedidoModel item){
         itens.add(item);
     }
-
-    public void removeItem(ItemPedidoModel item){
-        itens.remove(item);
-    }
 }

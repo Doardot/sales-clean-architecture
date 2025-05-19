@@ -1,6 +1,4 @@
-package com.projarc.assignment1.auxiliar;
-
-import com.projarc.assignment1.dominio.entidades.OrcamentoModel;
+package com.projarc.assignment1.dominio.entidades;
 
 public interface IEndereco {
     IEndereco linkWith(IEndereco next);

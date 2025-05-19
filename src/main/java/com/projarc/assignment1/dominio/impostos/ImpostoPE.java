@@ -1,9 +1,8 @@
-package com.projarc.assignment1.auxiliar;
+package com.projarc.assignment1.dominio.impostos;
 
 import com.projarc.assignment1.dominio.entidades.ItemPedidoModel;
 import com.projarc.assignment1.dominio.entidades.OrcamentoModel;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ImpostoPE implements IImposto{

@@ -5,7 +5,6 @@ import com.projarc.assignment1.dominio.entidades.OrcamentoModel;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
 
 import java.time.LocalDate;
 import java.util.List;

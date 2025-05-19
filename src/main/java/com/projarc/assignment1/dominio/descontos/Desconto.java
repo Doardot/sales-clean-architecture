@@ -1,4 +1,4 @@
-package com.projarc.assignment1.auxiliar;
+package com.projarc.assignment1.dominio.descontos;
 
 import com.projarc.assignment1.dominio.entidades.ItemPedidoModel;
 import com.projarc.assignment1.dominio.entidades.OrcamentoModel;

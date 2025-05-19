@@ -1,7 +1,6 @@
 package com.projarc.assignment1.interfaceAdaptadora.repositorios.implemRepositorios;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,46 +27,6 @@ public class OrcamentoRepJPA implements IOrcamentoRepositorio {
     }
 
     @Override
-    public List<OrcamentoModel> listarTodosOrcamentos() {
-        List<Orcamento> orcamentos = orcamentoRepository.findAll();
-        return orcamentos.stream()
-                 .map(Orcamento::toOrcamentoModel)
-                .toList();
-    }
-
-    @Override
-    public List<OrcamentoModel> listarOrcamentosPendentes() {
-        List<Orcamento> orcamentos = orcamentoRepository.findByStatus(OrcamentoModel.Status.PENDENTE);
-        return orcamentos.stream()
-                .map(Orcamento::toOrcamentoModel)
-                .toList();
-    }
-
-    @Override
-    public List<OrcamentoModel> listarOrcamentosEfetivados() {
-        List<Orcamento> orcamentos = orcamentoRepository.findByStatus(OrcamentoModel.Status.EFETIVADO);
-        return orcamentos.stream()
-                .map(Orcamento::toOrcamentoModel)
-                .toList();
-    }
-
-    @Override
-    public List<OrcamentoModel> listarOrcamentosCancelados() {
-        List<Orcamento> orcamentos = orcamentoRepository.findByStatus(OrcamentoModel.Status.CANCELADO);
-        return orcamentos.stream()
-                .map(Orcamento::toOrcamentoModel)
-                .toList();
-    }
-
-    @Override
-    public List<OrcamentoModel> listarOrcamentosPorCliente(String nomeCliente) {
-        List<Orcamento> orcamentos = orcamentoRepository.findByNomeCliente(nomeCliente);
-        return orcamentos.stream()
-                .map(Orcamento::toOrcamentoModel)
-                .toList();
-    }
-
-    @Override
     public List<OrcamentoModel> listarOrcamentoPorPeriodo(LocalDate dataInicio, LocalDate dataFim) {
         List<Orcamento> orcamentos = orcamentoRepository.findByDataBetween(dataInicio, dataFim);
         return orcamentos.stream()
@@ -82,7 +41,6 @@ public class OrcamentoRepJPA implements IOrcamentoRepositorio {
                 orcamento.getEndereco().getPais()
         );
         Orcamento orcamentoEntity = new Orcamento();
-    //    orcamentoEntity.setId(orcamento.getId());
         orcamentoEntity.setData(orcamento.getData());
         orcamentoEntity.setNomeCliente(orcamento.getNomeCliente());
         orcamentoEntity.setEndereco(enderecoEntity);

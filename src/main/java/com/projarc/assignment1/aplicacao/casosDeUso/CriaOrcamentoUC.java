@@ -1,9 +1,6 @@
 package com.projarc.assignment1.aplicacao.casosDeUso;
 
-import java.util.List;
-
 import lombok.RequiredArgsConstructor;
-import org.hibernate.tool.schema.internal.exec.ScriptTargetOutputToFile;
 import org.springframework.stereotype.Component;
 
 import com.projarc.assignment1.aplicacao.dtos.ItemPedidoDTO;
