@@ -6,7 +6,7 @@ import java.util.List;
 import com.projarc.assignment1.aplicacao.casosDeUso.AdicionaProdutoUC;
 import com.projarc.assignment1.aplicacao.casosDeUso.ListarQtdProdutosSelecionadosUC;
 import com.projarc.assignment1.aplicacao.casosDeUso.ListarQtdProdutosUC;
-import com.projarc.assignment1.aplicacao.dtos.ItemDeEstoqueDto;
+import com.projarc.assignment1.aplicacao.dtos.ItemDeEstoqueDTO;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -45,13 +45,13 @@ public class ProdutoController {
 
     @GetMapping("listarQtdProdutos")
     @CrossOrigin(origins = "*")
-    public List<ItemDeEstoqueDto> listarQtdProdutos(){
+    public List<ItemDeEstoqueDTO> listarQtdProdutos(){
         return listarQtdProdutosUC.run();
     }
 
     @GetMapping("listarQtdProdutosSelecionados")
     @CrossOrigin(origins = "*")
-    public List<ItemDeEstoqueDto> listarQtdProdutosSelecionados(@RequestBody List<Long> idProdutos){
+    public List<ItemDeEstoqueDTO> listarQtdProdutosSelecionados(@RequestBody List<Long> idProdutos){
         return listarQtdProdutosSelecionadosUC.run(idProdutos);
     }
 }
