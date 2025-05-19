@@ -2,12 +2,17 @@ package com.projarc.assignment1.dominio.servicos;
 
 import java.util.List;
 
-import com.projarc.assignment1.auxiliar.*;
+import com.projarc.assignment1.dominio.validacoes.PaisValidacao;
+import com.projarc.assignment1.dominio.validacoes.EstadoValidacao;
+import com.projarc.assignment1.dominio.validacoes.IEndereco;
+import com.projarc.assignment1.dominio.descontos.IDesconto;
+import com.projarc.assignment1.dominio.descontos.Desconto;
+import com.projarc.assignment1.dominio.impostos.IImposto;
+import com.projarc.assignment1.dominio.impostos.ImpostoFederal;
+import com.projarc.assignment1.dominio.impostos.ImpostoPE;
+import com.projarc.assignment1.dominio.impostos.ImpostoRS;
+import com.projarc.assignment1.dominio.impostos.ImpostoSP;
 import com.projarc.assignment1.dominio.entidades.EnderecoModel;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import com.projarc.assignment1.aplicacao.dtos.OrcamentoDTO;
 import com.projarc.assignment1.dominio.entidades.ItemPedidoModel;
 import com.projarc.assignment1.dominio.entidades.OrcamentoModel;
 import com.projarc.assignment1.dominio.entidades.PedidoModel;
@@ -15,14 +20,14 @@ import com.projarc.assignment1.dominio.entidades.ProdutoModel;
 import com.projarc.assignment1.dominio.entidades.OrcamentoModel.Status;
 import com.projarc.assignment1.dominio.interfRepositorios.IEstoqueRepositorio;
 import com.projarc.assignment1.dominio.interfRepositorios.IOrcamentoRepositorio;
+import org.springframework.stereotype.Service;
 
 @Service
 public class ServicoDeVendas {
     private IOrcamentoRepositorio orcamentos;
     private IEstoqueRepositorio estoque;
 
-    @Autowired
-    public ServicoDeVendas(IOrcamentoRepositorio orcamentos,IEstoqueRepositorio estoque){
+    public ServicoDeVendas(IOrcamentoRepositorio orcamentos, IEstoqueRepositorio estoque) {
         this.orcamentos = orcamentos;
         this.estoque = estoque;
     }
@@ -37,7 +42,7 @@ public class ServicoDeVendas {
 
     public OrcamentoModel criaOrcamento(PedidoModel pedido, String pais, String estado) {
         EnderecoModel endereco = new EnderecoModel(estado, pais);
-        OrcamentoModel novoOrcamento = new OrcamentoModel(0);
+        OrcamentoModel novoOrcamento = new OrcamentoModel();
         novoOrcamento.setEndereco(endereco);
         novoOrcamento.addItensPedido(pedido);
 
@@ -53,7 +58,21 @@ public class ServicoDeVendas {
         IImposto impostoFederal = new ImpostoFederal();
         novoOrcamento.setImpostoFederal(impostoFederal.calcularImposto(novoOrcamento));
 
-        IImposto impostoEstadual = EstadoFactory.obterImpostoPorEstado(estado);
+        // Seleciona o imposto estadual conforme o estado
+        IImposto impostoEstadual;
+        switch (estado) {
+            case "PE":
+                impostoEstadual = new ImpostoPE();
+                break;
+            case "RS":
+                impostoEstadual = new ImpostoRS();
+                break;
+            case "SP":
+                impostoEstadual = new ImpostoSP();
+                break;
+            default:
+                impostoEstadual = orc -> 0.0;
+        }
         novoOrcamento.setImpostoEstadual(impostoEstadual.calcularImposto(novoOrcamento));
 
         IDesconto desconto = new Desconto();
@@ -75,7 +94,6 @@ public class ServicoDeVendas {
         }
 
         if (!orcamento.estaValido()) {
-
             orcamentos.marcaComoCancelado(id);
             return this.recuperaOrcamentoPorId(id);
         }
@@ -95,6 +113,5 @@ public class ServicoDeVendas {
 
         orcamentos.marcaComoEfetivado(id);
         return this.recuperaOrcamentoPorId(id);
-
     }
 }
