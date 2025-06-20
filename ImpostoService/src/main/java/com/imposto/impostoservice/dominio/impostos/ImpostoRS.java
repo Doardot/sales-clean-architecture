@@ -1,7 +1,8 @@
-package com.imposto.service.dominio.impostos;
+package com.imposto.impostoservice.dominio.impostos;
 
-import com.imposto.service.dominio.entidades.ItemModel;
 import java.util.ArrayList;
+
+import com.imposto.impostoservice.dominio.entidades.ItemModel;
 
 public class ImpostoRS implements IImposto {
     @Override

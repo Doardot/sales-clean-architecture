@@ -1,7 +1,7 @@
-package com.imposto.service.dominio.factories;
+package com.imposto.impostoservice.dominio.factories;
 
-import com.imposto.service.dominio.impostos.IImposto;
-import com.imposto.service.dominio.impostos.ImpostoFederal;
+import com.imposto.impostoservice.dominio.impostos.IImposto;
+import com.imposto.impostoservice.dominio.impostos.ImpostoFederal;
 
 public class PaisFactory {
     public static IImposto obterImpostoPorPais(String pais) {

@@ -1,4 +1,4 @@
-package com.imposto.service.dominio.entidades;
+package com.imposto.impostoservice.dominio.entidades;
 
 public class ItemModel {
     private double valorUnitario;

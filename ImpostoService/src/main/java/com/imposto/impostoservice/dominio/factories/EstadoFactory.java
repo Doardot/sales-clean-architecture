@@ -1,9 +1,9 @@
-package com.imposto.service.dominio.factories;
+package com.imposto.impostoservice.dominio.factories;
 
-import com.imposto.service.dominio.impostos.IImposto;
-import com.imposto.service.dominio.impostos.ImpostoPE;
-import com.imposto.service.dominio.impostos.ImpostoRS;
-import com.imposto.service.dominio.impostos.ImpostoSP;
+import com.imposto.impostoservice.dominio.impostos.IImposto;
+import com.imposto.impostoservice.dominio.impostos.ImpostoPE;
+import com.imposto.impostoservice.dominio.impostos.ImpostoRS;
+import com.imposto.impostoservice.dominio.impostos.ImpostoSP;
 
 public class EstadoFactory {
     public static IImposto obterImpostoPorEstado(String estado) {

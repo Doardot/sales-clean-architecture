@@ -6,9 +6,6 @@ import java.util.List;
 import com.projarc.assignment1.dominio.descontos.Desconto;
 import com.projarc.assignment1.dominio.descontos.IDesconto;
 import com.projarc.assignment1.dominio.entidades.EnderecoModel;
-import com.projarc.assignment1.dominio.factories.EstadoFactory;
-import com.projarc.assignment1.dominio.factories.PaisFactory;
-import com.projarc.assignment1.dominio.impostos.IImposto;
 import com.projarc.assignment1.dominio.validacoes.EstadoValidacao;
 import com.projarc.assignment1.dominio.validacoes.PaisValidacao;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,11 +50,11 @@ public class ServicoDeVendas {
                 .sum();
         novoOrcamento.setSomatorioCustoItens(custoItens);
 
-        IImposto impostoFederal = PaisFactory.obterImpostoPorPais(pais);
-        novoOrcamento.setImpostoFederal(impostoFederal.calcularImposto(novoOrcamento));
+        // IImposto impostoFederal = PaisFactory.obterImpostoPorPais(pais);
+        // novoOrcamento.setImpostoFederal(impostoFederal.calcularImposto(novoOrcamento));
 
-        IImposto impostoEstadual = EstadoFactory.obterImpostoPorEstado(estado);
-        novoOrcamento.setImpostoEstadual(impostoEstadual.calcularImposto(novoOrcamento));
+        // IImposto impostoEstadual = EstadoFactory.obterImpostoPorEstado(estado);
+        // novoOrcamento.setImpostoEstadual(impostoEstadual.calcularImposto(novoOrcamento));
 
         IDesconto desconto = new Desconto();
         double valorDesconto = desconto.calcularDesconto(novoOrcamento);
