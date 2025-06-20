@@ -22,6 +22,7 @@ public class OrcamentoModel {
     private double somatorioCustoItens;
     private double impostoEstadual;
     private double impostoFederal;
+    private double impostoTotal;
     private double desconto;
     private double valorFinal;
     private Status status = Status.PENDENTE;

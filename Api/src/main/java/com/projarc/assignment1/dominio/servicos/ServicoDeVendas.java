@@ -23,11 +23,13 @@ import com.projarc.assignment1.dominio.entidades.IEndereco;
 public class ServicoDeVendas {
     private IOrcamentoRepositorio orcamentos;
     private IEstoqueRepositorio estoque;
+    private final IServicoDeImposto imposto;
 
     @Autowired
-    public ServicoDeVendas(IOrcamentoRepositorio orcamentos,IEstoqueRepositorio estoque){
+    public ServicoDeVendas(IOrcamentoRepositorio orcamentos,IEstoqueRepositorio estoque, IServicoDeImposto imposto) {
         this.orcamentos = orcamentos;
         this.estoque = estoque;
+        this.imposto = imposto;
     }
 
     public OrcamentoModel recuperaOrcamentoPorId(long id) {
@@ -50,11 +52,20 @@ public class ServicoDeVendas {
                 .sum();
         novoOrcamento.setSomatorioCustoItens(custoItens);
 
+        
         // IImposto impostoFederal = PaisFactory.obterImpostoPorPais(pais);
         // novoOrcamento.setImpostoFederal(impostoFederal.calcularImposto(novoOrcamento));
 
         // IImposto impostoEstadual = EstadoFactory.obterImpostoPorEstado(estado);
         // novoOrcamento.setImpostoEstadual(impostoEstadual.calcularImposto(novoOrcamento));
+
+        double imposto = this.imposto.calcularImposto(
+                novoOrcamento.getItens(), 
+                novoOrcamento.getEndereco().getEstado(), 
+                novoOrcamento.getEndereco().getPais()
+        );
+
+        novoOrcamento.setImpostoTotal(imposto);
 
         IDesconto desconto = new Desconto();
         double valorDesconto = desconto.calcularDesconto(novoOrcamento);
