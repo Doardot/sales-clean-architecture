@@ -1,7 +1,7 @@
-package com.projarc.assignment1.dominio.factories;
+package com.imposto.service.dominio.factories;
 
-import com.projarc.assignment1.dominio.impostos.IImposto;
-import com.projarc.assignment1.dominio.impostos.ImpostoFederal;
+import com.imposto.service.dominio.impostos.IImposto;
+import com.imposto.service.dominio.impostos.ImpostoFederal;
 
 public class PaisFactory {
     public static IImposto obterImpostoPorPais(String pais) {
