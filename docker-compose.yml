@@ -1,0 +1,65 @@
+version: "3.8"
+
+services:
+  rabbitmq:
+    image: "rabbitmq:3.12-management"
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    networks:
+      - micro-network
+
+  naming-server:
+    build: ./naming-server
+    ports:
+      - "8761:8761"
+    networks:
+      - micro-network
+
+  api-gateway:
+    build: ./api-gateway
+    ports:
+      - "8765:8765"
+    depends_on:
+      - naming-server
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://naming-server:8761/eureka
+    networks:
+      - micro-network
+
+  imposto-service:
+    build: ./ImpostoService
+    depends_on:
+      - naming-server
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://naming-server:8761/eureka
+    networks:
+      - micro-network
+
+  receita-service:
+    build: ./ReceitaService
+    depends_on:
+      - naming-server
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://naming-server:8761/eureka
+    networks:
+      - micro-network
+
+  api:
+    build: ./Api
+    ports:
+      - "8080:8080"
+    depends_on:
+      - naming-server
+      - rabbitmq
+      - imposto-service
+      - receita-service
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://naming-server:8761/eureka
+      - SPRING_RABBITMQ_HOST=rabbitmq
+    networks:
+      - micro-network
+
+networks:
+  micro-network:
+    driver: bridge
