@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.imposto.impostoservice.aplicacao.casosDeUso.CalcularImpostosUC;
 import com.imposto.impostoservice.aplicacao.dtos.ItemModelDTO;
+import com.imposto.impostoservice.aplicacao.dtos.OrcamentoDTO;
 
 import lombok.AllArgsConstructor;
 
@@ -29,7 +30,7 @@ public class ImpostoController {
 
     @PostMapping("/calcularImposto")
     @CrossOrigin(origins = "*")
-    public double calcularImposto(@RequestBody ArrayList<ItemModelDTO> itens,
+    public OrcamentoDTO calcularImposto(@RequestBody ArrayList<ItemModelDTO> itens,
             @RequestParam String estado,
             @RequestParam String pais) {
         return calcularImpostosUC.run(itens, estado, pais);

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 import com.imposto.impostoservice.dominio.entidades.ItemModel;
 import com.imposto.impostoservice.dominio.servicos.ServicoDeImposto;
 import com.imposto.impostoservice.aplicacao.dtos.ItemModelDTO;
+import com.imposto.impostoservice.aplicacao.dtos.OrcamentoDTO;
 
 import lombok.AllArgsConstructor;
 
@@ -15,7 +16,7 @@ import lombok.AllArgsConstructor;
 public class CalcularImpostosUC {
     private final ServicoDeImposto servicoDeImposto;
 
-    public double run(ArrayList<ItemModelDTO> itens, String estado, String pais) {
+    public OrcamentoDTO run(ArrayList<ItemModelDTO> itens, String estado, String pais) {
         ArrayList<ItemModel> itemModels = new ArrayList<>();
         for (ItemModelDTO itemDTO : itens) {
             ItemModel itemModel = new ItemModel(itemDTO.getNome(), itemDTO.getValorUnitario(), itemDTO.getQuantidade(), itemDTO.isEssencial());
