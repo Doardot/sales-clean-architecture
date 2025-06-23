@@ -9,14 +9,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ItemModelDTO {
-    private String nome;
     private double valorUnitario;
     private int quantidade;
     private boolean essencial;
 
     public static ItemModelDTO fromModel(ItemModel itemModel){
         return new ItemModelDTO(
-            itemModel.getNome(),
             itemModel.getValorUnitario(),
             itemModel.getQuantidade(),
             itemModel.isEssencial()

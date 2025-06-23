@@ -1,11 +1,11 @@
-package com.imposto.impostoservice.aplicacao.dtos;
+package com.projarc.assignment1.aplicacao.dtos;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 
-@Data
+@Getter
 @AllArgsConstructor
-public class OrcamentoDTO {
+public class ImpostoDTO {
     private double impostoFederal;
     private double impostoEstadual;
 }

@@ -19,7 +19,7 @@ public class CalcularImpostosUC {
     public OrcamentoDTO run(ArrayList<ItemModelDTO> itens, String estado, String pais) {
         ArrayList<ItemModel> itemModels = new ArrayList<>();
         for (ItemModelDTO itemDTO : itens) {
-            ItemModel itemModel = new ItemModel(itemDTO.getNome(), itemDTO.getValorUnitario(), itemDTO.getQuantidade(), itemDTO.isEssencial());
+            ItemModel itemModel = new ItemModel(itemDTO.getValorUnitario(), itemDTO.getQuantidade(), itemDTO.isEssencial());
             itemModels.add(itemModel);
         }
 

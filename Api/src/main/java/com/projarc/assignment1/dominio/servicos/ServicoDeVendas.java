@@ -1,13 +1,18 @@
 package com.projarc.assignment1.dominio.servicos;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
+import com.projarc.assignment1.aplicacao.dtos.ImpostoDTO;
 import com.projarc.assignment1.dominio.descontos.Desconto;
 import com.projarc.assignment1.dominio.descontos.IDesconto;
 import com.projarc.assignment1.dominio.entidades.EnderecoModel;
 import com.projarc.assignment1.dominio.validacoes.EstadoValidacao;
 import com.projarc.assignment1.dominio.validacoes.PaisValidacao;
+import com.projarc.assignment1.interfaceAdaptadora.proxies.ImpostoServiceProxy;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,16 +23,19 @@ import com.projarc.assignment1.dominio.entidades.OrcamentoModel.Status;
 import com.projarc.assignment1.dominio.interfRepositorios.IEstoqueRepositorio;
 import com.projarc.assignment1.dominio.interfRepositorios.IOrcamentoRepositorio;
 import com.projarc.assignment1.dominio.entidades.IEndereco;
+import com.projarc.assignment1.dominio.entidades.ItemImpostoModel;
 
 @Service
 public class ServicoDeVendas {
     private IOrcamentoRepositorio orcamentos;
     private IEstoqueRepositorio estoque;
+    private ImpostoServiceProxy impostoServiceProxy;
 
     @Autowired
-    public ServicoDeVendas(IOrcamentoRepositorio orcamentos,IEstoqueRepositorio estoque){
+    public ServicoDeVendas(IOrcamentoRepositorio orcamentos,IEstoqueRepositorio estoque, ImpostoServiceProxy impostoServiceProxy) {
         this.orcamentos = orcamentos;
         this.estoque = estoque;
+        this.impostoServiceProxy = impostoServiceProxy;
     }
 
     public OrcamentoModel recuperaOrcamentoPorId(long id) {
@@ -49,12 +57,17 @@ public class ServicoDeVendas {
                 .mapToDouble(it -> it.getProduto().getPrecoUnitario() * it.getQuantidade())
                 .sum();
         novoOrcamento.setSomatorioCustoItens(custoItens);
-
-        // IImposto impostoFederal = PaisFactory.obterImpostoPorPais(pais);
-        // novoOrcamento.setImpostoFederal(impostoFederal.calcularImposto(novoOrcamento));
-
-        // IImposto impostoEstadual = EstadoFactory.obterImpostoPorEstado(estado);
-        // novoOrcamento.setImpostoEstadual(impostoEstadual.calcularImposto(novoOrcamento));
+        
+        List<ItemImpostoModel> itensImpostoModel = novoOrcamento.getItens().stream()
+            .map(itemPedido -> new ItemImpostoModel(
+                    itemPedido.getProduto().getPrecoUnitario(),
+                    itemPedido.getQuantidade(),
+                    itemPedido.getProduto().isEssencial()
+            ))
+            .collect(Collectors.toList());
+        ImpostoDTO impostoDTO = this.impostoServiceProxy.calcularImposto(itensImpostoModel, estado, pais);
+        novoOrcamento.setImpostoFederal(impostoDTO.getImpostoFederal());
+        novoOrcamento.setImpostoEstadual(impostoDTO.getImpostoEstadual());
 
         IDesconto desconto = new Desconto();
         double valorDesconto = desconto.calcularDesconto(novoOrcamento);
